@@ -1,0 +1,65 @@
+project:
+  type: website
+  resources:
+    - "css/"
+    - "js/"
+    - "*.html"
+  output-dir: docs
+
+website:
+  title: "hambiDoubleEvo"
+  sidebar:
+    style: "docked"
+    background: light
+    search: true
+    contents:
+      - section: "Community composition amplicon"
+        contents:
+          - text: "1. Read and format"
+            file: R/illumina_v3v4/01_rpkm2tab.qmd
+          - text: "2. Analyze and plot"
+            file: R/illumina_v3v4/02_analysis.qmd
+      - section: "Population WGS"
+        contents:
+          - text: "1. Read and format"
+            file: R/wgs/01_format_variants.qmd
+          - text: "2. Parallelism analysis"
+            file: R/wgs/02_parallelism.qmd
+      - section: "Metagenome sequencing"
+        contents:
+          - text: "1. Read and format"
+            file: R/metagenome/01_format_variants.qmd
+          - text: "2. Parallelism analysis"
+            file: R/metagenome/02_parallelism.qmd
+          - text: "3. Variant plotting"
+            file: R/metagenome/03_analyze_metagenome_variant_timeseries.qmd
+          - text: "4. Mutational dynamics"
+            file: R/metagenome/04_mutation_dynamics.qmd
+
+format:
+  html:
+    theme:
+      - cosmo
+    # include table of contents
+    toc: true
+    # when printing dataframes use rmarkdown::paged_table())
+    df-print: paged
+    # set default dimensions for figures
+    fig-width: 8
+    fig-height: 6
+    # tidy format R code upon render
+    tidy: false
+    # include line numbers in code blocks
+    code-line-numbers: true
+    # The code-link option enables hyper-linking of functions within code blocks to their online documentation:
+    #code-link: true
+    number-sections: true
+    code-fold: show
+    code-summary: "Show/hide code"
+    code-tools: true
+  
+# auto: re-render only when source changes   
+execute:
+  freeze: false 
+  
+editor: source

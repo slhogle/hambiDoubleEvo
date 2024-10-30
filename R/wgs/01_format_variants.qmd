@@ -1,0 +1,168 @@
+---
+title: "Format WGS variants"
+author: "Shane Hogle"
+date: today
+abstract: "This notebook formats for downstream use the table and VCF output from mutect2 called on WGS population data in the evolved bacteria inoculum. These are species that had been experimentally evolved before the main match/mis-match experiment. The formatting removes some variants with spurious features and connects variants to functional annotations and gene identities."
+---
+
+```{r}
+#| output: false
+#| warning: false
+#| error: false
+library(here)
+library(tidyverse)
+library(withr)
+library(fs)
+library(archive)
+source(here::here("R", "utils_generic.R"))
+
+# Set up some directories -------------------------------------------------
+data_raw <- here::here("_data_raw", "wgs")
+vcftar <- here::here(data_raw, "tables.tar.gz")
+
+# create temporary location to decompress
+tmpdir <- fs::file_temp()
+
+# make processed data directory if it doesn't exist
+data <- here::here("data", "wgs")
+fs::dir_create(data)
+
+# untar directory containing tables 
+archive::archive_extract(
+  vcftar,
+  dir = tmpdir,
+  files = NULL,
+  options = character(),
+  strip_components = 0L
+)
+
+vcfdir <- here::here(tmpdir, "tables")
+
+# Read variant SnpEff annotations -----------------------------------------
+
+snpefffiles <- fs::dir_ls(
+  path = vcfdir,
+  all = FALSE,
+  recurse = TRUE,
+  type = "file",
+  glob = "*.snpeff.tsv",
+  regexp = NULL,
+  invert = FALSE,
+  fail = TRUE
+)
+
+snpeffslurped <- readr::read_tsv(
+  snpefffiles,
+  skip = 1,
+  col_names = c(
+    "chrom",
+    "pos",
+    "ref",
+    "alt",
+    "filter",
+    # Annotated using Sequence Ontology terms. Multiple effects can be concatenated using '&'.
+    "effect",
+    # A simple estimation of putative impact / deleteriousness : HIGH, MODERATE, LOW, or MODIFIER
+    "impact",
+    # gene id from prokka
+    "locus_tag",
+    # whether variant is coding or noncoding
+    "biotype",
+    # Variant using HGVS notation (DNA level)
+    "hgvs_c",
+    # Variant using HGVS notation (Protein level).
+    "hgvs_p",
+    # Position in coding bases (one based includes START and STOP codons).
+    "cds_pos",
+    # Total number of coding bases (one based includes START and STOP codons).
+    "cds_len",
+    # Position in translated product (one based includes START and STOP codons).
+    "aa_pos",
+    # Total length of translated product (one based includes START and STOP codons).
+    "aa_len"
+  ),
+  col_types = c("cdcccccccccdddd"),
+  id = "sample"
+)
+
+snpeffslurpedfmt <- snpeffslurped %>% 
+  # this is weird, but joining on column like filter that contains characters like ';' doesnt work
+  dplyr::select(-filter) %>% 
+  mutate(sample = str_extract(sample, 
+                              regex("(HAMBI_[:digit:]{4}-[:alpha:]-[:alnum:]{3})|(HAMBI_[:digit:]{4}-[:alpha:]-SH-WGS-[:digit:]{3})"))) %>% 
+  separate(sample, into = c("strainID", "replicate", "sample"), sep="-", extra = "merge")
+
+# Read variant frequencies ------------------------------------------------
+
+varfiles <- fs::dir_ls(
+  path = vcfdir,
+  all = FALSE,
+  recurse = TRUE,
+  type = "file",
+  glob = "*.variants.tsv",
+  regexp = NULL,
+  invert = FALSE,
+  fail = TRUE
+)
+
+varslurped <- readr::read_tsv(
+  varfiles,
+  skip = 1,
+  col_names = c(
+    "chrom",
+    "pos",
+    "ref",
+    "alt",
+    "filter",
+    "type",
+    # Allelic depths for the ref and alt alleles in the order listed
+    "ad",
+    # Allele fractions of alternate alleles. Excludes filtering
+    "freq_alt_raw",
+    # Approximate read depth (reads are filtered if MQ=255 or with bad mates)
+    "depth_total",
+    # Count of fragments supporting each allele.
+    "frag_allele_depth",
+    # Genotype Quality
+    "genotype_qual"
+  ),
+  col_types = c("cdccccccccc"),
+  id = "sample"
+)
+
+varslurpedfmt <- varslurped %>% 
+  mutate(sample = str_extract(sample, 
+                              regex("(HAMBI_[:digit:]{4}-[:alpha:]-[:alnum:]{3})|(HAMBI_[:digit:]{4}-[:alpha:]-SH-WGS-[:digit:]{3})"))) %>% 
+  separate(sample, into = c("strainID", "replicate", "sample"), sep="-", extra = "merge") %>% 
+  # taken only first two most abundant alleles
+  separate(ad, into =  c("depth_ref", "depth_alt"), 
+           sep=",", extra="drop") %>% 
+  # format depths to numberic
+  mutate(depth_ref = as.numeric(depth_ref), 
+         depth_alt = as.numeric(depth_alt)) %>%
+  select(-frag_allele_depth, -genotype_qual) %>% 
+  mutate(freq_alt = depth_alt/(depth_ref + depth_alt),
+         freq_ref = 1 - freq_alt) %>% 
+  # final format depths to numeric
+  mutate(freq_alt_raw = as.numeric(freq_alt_raw),
+         depth_total = as.numeric(depth_total))
+
+# Read premade annotations -----------------------------------------------------
+
+annotations <- read_rds(here::here("_data_raw", "shared", "annotations_codon_degeneracy.rds"))
+
+# Combine -----------------------------------------------------------------
+
+full <- left_join(varslurpedfmt, snpeffslurpedfmt,
+                  by = join_by(strainID, replicate, sample, chrom, pos, ref, alt)) %>%
+  left_join(annotations,
+            by = join_by(strainID, chrom, locus_tag))
+# Write output ------------------------------------------------------------
+
+write_rds(full, here::here(data, "mutect_parsed_annotated.rds"))
+
+# Clean up ----------------------------------------------------------------
+
+# remove decompressed vcf and tables directory from temp location
+fs::dir_delete(vcfdir)
+```

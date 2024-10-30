@@ -1,0 +1,412 @@
+---
+title: "Format metagenome variants"
+author: "Shane Hogle"
+date: today
+abstract: "This notebook formats for downstream use the table and VCF output from mutect2 called on metagenome data. It does some filtering to remove variants that are likely spurious and connects variants to functional annotations and gene identities. Finally it joins the WGS variants formatted earlier as the initial sampling point so that we can make time series from 0, 8, 28, and 60 days."
+---
+
+# Setup
+
+Libraries and global variables
+
+```{r}
+#| output: false
+library(here)
+library(tidyverse)
+library(Polychrome)
+library(withr)
+library(fs)
+library(archive)
+source(here::here("R", "utils_generic.R"))
+```
+
+Set up some directories
+
+```{r}
+#| output: false
+#| warning: false
+#| error: false
+data_raw <- here::here("_data_raw", "metagenome")
+shared <- here::here("_data_raw", "shared")
+vcftar <- here::here(data_raw, "tables.tar.gz")
+covtar <- here::here(data_raw, "coverage.tar.gz")
+
+# create temporary location to decompress
+tmpdir <- fs::file_temp()
+
+# make processed data directory if it doesn't exist
+data <- here::here("data", "metagenome")
+fs::dir_create(data)
+```
+
+## Untar and decompress
+
+```{r}
+# untar directory containing variant tables 
+archive::archive_extract(
+  vcftar,
+  dir = tmpdir,
+  files = NULL,
+  options = character(),
+  strip_components = 0L
+)
+
+vcfdir <- here::here(tmpdir, "tables")
+
+# untar directory containing variant tables 
+archive::archive_extract(
+  covtar,
+  dir = tmpdir,
+  files = NULL,
+  options = character(),
+  strip_components = 0L
+)
+
+covdir <- here::here(tmpdir, "coverage")
+```
+
+
+# Reading and small formatting of data
+
+## Coverage data 
+```{r}
+#| eval: false
+#| echo: true
+covfiles <- fs::dir_ls(
+  path = covdir,
+  all = FALSE,
+  recurse = TRUE,
+  type = "file",
+  glob = "*.coverage.tsv",
+  regexp = NULL,
+  invert = FALSE,
+  fail = TRUE
+)
+
+covslurped <- readr::read_tsv(
+  covfiles,
+  skip = 1,
+  col_names = c(
+    "scaffold",
+    "mean",
+    "trimmed_mean",
+    "covered_fraction",
+    "covered_bases",
+    "variance",
+    "length",
+    "read_count",
+    "reads_per_base"
+  ),
+  col_types = "cdddddddd",
+  id = "file_name"
+)
+
+covslurpedfmt <- covslurped %>%
+  mutate(sample = str_extract(file_name, "SH-MET-[:digit:]{3}"),
+         strainID   = str_extract(file_name, "HAMBI_[:digit:]{4}")) %>%
+  dplyr::select(-file_name) %>%
+  relocate(strainID, sample)
+
+covslurpedfmtflt <- covslurpedfmt %>%
+  mutate(bamname = paste0(strainID,"-",sample)) %>%
+  # exclude species with trimmed mean (Dt) < 5
+  mutate(FILTER = if_else(trimmed_mean >= 5, FALSE, TRUE))
+
+write_tsv(covslurpedfmtflt, here::here(data, "coverage.tsv"))
+
+# cleanup
+fs::dir_delete(covdir)
+```
+
+```{r}
+#| output: false
+#| warning: false
+#| error: false
+covslurpedfmtflt <- read_tsv(here::here(data, "coverage.tsv"))
+```
+
+## Variants 
+
+### SnpEff annotations 
+
+```{r}
+snpefffiles <- fs::dir_ls(
+  path = vcfdir,
+  all = FALSE,
+  recurse = TRUE,
+  type = "file",
+  glob = "*.snpeff.tsv",
+  regexp = NULL,
+  invert = FALSE,
+  fail = TRUE
+)
+
+snpeffslurped <- readr::read_tsv(
+  snpefffiles,
+  skip = 1,
+  col_names = c(
+    "chrom",
+    "pos",
+    "ref",
+    "alt",
+    "filter",
+    # Annotated using Sequence Ontology terms. Multiple effects can be concatenated using '&'.
+    "effect",
+    # A simple estimation of putative impact / deleteriousness : HIGH, MODERATE, LOW, or MODIFIER
+    "impact",
+    # gene id from prokka
+    "locus_tag",
+    # whether variant is coding or noncoding
+    "biotype",
+    # Variant using HGVS notation (DNA level)
+    "hgvs_c",
+    # Variant using HGVS notation (Protein level).
+    "hgvs_p",
+    # Position in coding bases (one based includes START and STOP codons).
+    "cds_pos",
+    # Total number of coding bases (one based includes START and STOP codons).
+    "cds_len",
+    # Position in translated product (one based includes START and STOP codons).
+    "aa_pos",
+    # Total length of translated product (one based includes START and STOP codons).
+    "aa_len"
+  ),
+  col_types = c("cdcccccccccdddd"),
+  id = "sample"
+)
+
+snpeffslurpedfmt <- snpeffslurped %>% 
+  # this is weird, but joining on column like filter that contains characters like ';' doesnt work
+  dplyr::select(-filter) %>% 
+  mutate(sample = str_extract(sample, 
+                              regex("(HAMBI_[:digit:]{4}-SH-MET-[:digit:]{3})"))) %>% 
+  separate(sample, into = c("strainID", "sample"), sep="-", extra = "merge")
+```
+
+
+### Allele frequencies 
+
+```{r}
+varfiles <- fs::dir_ls(
+  path = vcfdir,
+  all = FALSE,
+  recurse = TRUE,
+  type = "file",
+  glob = "*.variants.tsv",
+  regexp = NULL,
+  invert = FALSE,
+  fail = TRUE
+)
+
+varslurped <- readr::read_tsv(
+  varfiles,
+  skip = 1,
+  col_names = c(
+    "chrom",
+    "pos",
+    "ref",
+    "alt",
+    "filter",
+    "type",
+    # Allelic depths for the ref and alt alleles in the order listed
+    "ad",
+    # Allele fractions of alternate alleles. Excludes filtering
+    "freq_alt_raw",
+    # Approximate read depth (reads are filtered if MQ=255 or with bad mates)
+    "depth_total",
+    # Count of fragments supporting each allele.
+    "frag_allele_depth",
+    # Genotype Quality
+    "genotype_qual"
+  ),
+  col_types = c("cdccccccccc"),
+  id = "sample"
+)
+
+varslurpedfmt <- varslurped %>% 
+  mutate(sample = str_extract(sample, 
+                              regex("(HAMBI_[:digit:]{4}-SH-MET-[:digit:]{3})"))) %>% 
+  separate(sample, into = c("strainID", "sample"), sep="-", extra = "merge") %>% 
+  # taken only first two most abundant alleles
+  separate(ad, into =  c("depth_ref", "depth_alt"), 
+           sep=",", extra="drop") %>% 
+  # format depths to numberic
+  mutate(depth_ref = as.numeric(depth_ref), 
+         depth_alt = as.numeric(depth_alt)) %>%
+  select(-frag_allele_depth, -genotype_qual) %>% 
+  mutate(freq_alt = depth_alt/(depth_ref + depth_alt),
+         freq_ref = 1 - freq_alt) %>% 
+  # final format depths to numeric
+  mutate(freq_alt_raw = as.numeric(freq_alt_raw),
+         depth_total = as.numeric(depth_total))
+```
+
+### Clean up tmp directories
+```{r}
+# remove decompressed vcf and tables directory from temp location
+fs::dir_delete(vcfdir)
+```
+
+## Mutations from WGS analysis
+
+```{r}
+#| output: false
+#| warning: false
+#| error: false
+wgs_freq <- read_tsv(here::here("data", "wgs", "wgsvars_filt_mb_nonsyn.tsv"))
+```
+
+## Annotations
+
+```{r}
+#| output: false
+#| warning: false
+#| error: false
+#annotations <- read_rds(here::here(data_raw, "annotations_codon_degeneracy.rds"))
+mgefinder <- read_tsv(here::here(shared, "MGE_finder_HAMBI_combined.tsv"))
+genomad <- read_tsv(here::here(shared, "genomad_HAMBI_combined.tsv")) %>% 
+  # exclude very large plasmids over 1Mbp from the filtering
+  filter((end - start) < 1000000)
+```
+
+# Formatting and filtering
+
+```{r}
+# Combine snpeff and var freqs
+mgvars <- left_join(varslurpedfmt, snpeffslurpedfmt,
+          by = join_by(strainID, sample, chrom, pos, ref, alt)) 
+```
+
+```{r}
+# get species called in metagenomes
+sps <- pull(mgvars, chrom) %>% 
+  str_extract("HAMBI_\\d{4}") %>% 
+  unique()
+
+sps
+```
+
+## Exclude regions with mobile elements in metagenomes
+```{r}
+mgvars_filt_mb <- mgvars %>% 
+  left_join(mgefinder, by = join_by(strainID, chrom), relationship = "many-to-many") %>% 
+  filter(!(pos >= start & pos <= end)) %>% 
+  dplyr::select(-name, -start, -end, -prediction_tool) %>% 
+  distinct() %>% 
+  left_join(genomad, by = join_by(strainID, chrom), relationship = "many-to-many") %>% 
+  filter(!(pos >= start & pos <= end)) %>% 
+  dplyr::select(-name, -start, -end, -prediction_tool) %>% 
+  distinct()
+```
+
+## Filter WGS on species only included in metaG
+```{r}
+wgs_filt_mb <- wgs_freq %>% 
+  filter(strainID %in% sps) %>% 
+  mutate(anc = "anc", evo = "evo") %>% 
+  pivot_longer(cols = c(anc, evo), names_to = "predator_history", values_to = "tmp") %>%  select(-tmp) %>% 
+  mutate(prey_history = "evo", 
+         transfer_category = "hi",
+         transfer_volume_ul = 1800,
+         time_days = 0)
+```
+
+## Combine WGS and metaG
+
+This includes all variants - both amino acid changing and non-changing
+```{r}
+freq_mg_wgs <- left_join(mgvars_filt_mb, 
+                         read_tsv(here::here(data, "metadata.tsv"))) %>% 
+  filter(transfer_category == "hi") %>% 
+  bind_rows(wgs_filt_mb) %>% 
+  mutate(pos = as.numeric(pos),
+         depth_total = as.numeric(depth_total)) %>% 
+  select(-hgvs_c, -aa_pos, -aa_len)
+```
+
+## Expand grid for variants
+
+Make a dataframe where all times/species/replicates/genomic position/experimental conditions are present
+```{r}
+vars_united <- freq_mg_wgs %>% 
+  select(chrom, pos, ref, alt) %>% 
+  distinct() %>% 
+  unite("combo", c(chrom, pos, ref, alt), sep = "|")
+
+times_full <- expand_grid(combo = vars_united$combo, 
+              time_days = c(0, 8, 28, 60), 
+              replicate = c("A", "C", "E"),
+              prey_history = c("anc", "evo"),
+              predator_history = c("anc", "evo")) %>% 
+  separate_wider_delim(combo, delim = "|", names = c("chrom", "pos", "ref", "alt")) %>% 
+  mutate(pos = as.numeric(pos),
+         transfer_category = "hi",
+         transfer_volume_ul = 1800)
+```
+
+## Format metagenome coverage data
+
+```{r}
+#| output: false
+#| warning: false
+#| error: false
+mg_cov <- covslurpedfmtflt %>%  
+  filter(strainID %in% sps) %>% 
+  left_join(read_tsv(here::here(data, "metadata.tsv"))) %>% 
+  filter(transfer_category == "hi") %>% 
+  # samples with trimmed mean coverage >=10 with over 99% of genome covered
+  # are to be trusted
+  mutate(cov_thresh_met = if_else(trimmed_mean >= 10 & covered_fraction > 0.99, 1, 0)) %>% 
+  select(sample, strainID, chrom=scaffold, trimmed_mean, covered_fraction, transfer_category:cov_thresh_met) 
+```
+
+# Combine variants into complete time series
+```{r}
+freq_full <- left_join(times_full, freq_mg_wgs, relationship = "one-to-one") %>% 
+  arrange(chrom, pos, ref, alt, replicate, predator_history, prey_history, time_days) %>% 
+  # group_by(chrom) %>% 
+  fill(strainID, .direction = "updown") %>% 
+  ungroup() %>% 
+  group_by(time_days, replicate, prey_history, predator_history) %>% 
+  fill(sample, .direction = "updown") %>% 
+  ungroup() %>% 
+  left_join(mg_cov) %>% 
+  mutate(cov_thresh_met = if_else(time_days == 0, 1, cov_thresh_met)) %>% 
+  mutate(freq_alt_complete = case_when(cov_thresh_met == 1 & !is.na(freq_alt) ~ freq_alt,
+                                       cov_thresh_met == 1 & is.na(freq_alt) ~ 0,
+                                       TRUE ~ NA_real_))
+```
+
+Some filtering to reduce size. Also record the number of mutect2 passing variants and add a time-lagged variable. We remove variants that only have an observation at T0 and never in any metagenome aample due to low coverage (i.e. they are NA). This will reduce the size of the dataset and make sure we focus on more than just signals present in the WGS analysis
+```{r}
+freq_full_sm01 <- freq_full %>% 
+  group_by(chrom, pos, ref, alt, replicate, prey_history, predator_history) %>% 
+  mutate(id = cur_group_id()) %>% 
+  ungroup() %>% 
+  group_by(id) %>% 
+  # can't be all zeros
+  filter(sum(freq_alt_complete, na.rm=TRUE) > 0) %>% 
+  # exclude only NAs
+  filter(sum(is.na(freq_alt_complete[time_days != 0])) < 3) %>% 
+  # mark some statistics that may be useful for later filtering
+  mutate(n_gt_fthresh = sum(freq_alt_complete >= 0.05, na.rm = T),
+         n_pass   = sum(filter == "PASS", na.rm = T),
+         n_cov_gt = sum(cov_thresh_met, na.rm =T)) %>% 
+  # freq_alt_complete_t1=lag(freq_alt_complete, order_by = time_days, n=1)
+  ungroup()
+```
+
+Here we require at least one observation with greater than 0.05 alt frequency and at least one variant passing mutect filters in the variant time series
+
+```{r}
+freq_full_sm02 <- freq_full_sm01 %>% 
+  filter(n_gt_fthresh >= 1 & n_pass >= 1) %>%
+  group_by(id) %>% 
+  fill(c(type, effect, impact, locus_tag, biotype, hgvs_p, cds_pos, cds_len), .direction = "updown")
+```
+
+# Export
+```{r}
+# save table for later use
+write_tsv(freq_full_sm02, here::here(data, "metagenome_variant_timeseries.tsv"))
+```

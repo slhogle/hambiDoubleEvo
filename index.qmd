@@ -1,0 +1,98 @@
+---
+title: "Data analysis for the project hambiDoubleEvo"
+date: today
+author:
+  - name: Shane L Hogle
+    orcid: 0000-0003-2595-3863
+    affiliation: 
+      - name: University of Turku
+        city: Turku
+        state: Finland
+        url: https://www.utu.fi/en
+  - name: Julius Hoffmann
+    affiliation: 
+      - name: University of Konstanz
+        city: Konstanz
+        state: Germany
+        url: https://www.uni-konstanz.de/en/
+#abstract: > 
+#  The abstract text can go here 
+#  and also here ...
+keywords:
+  - Microbiology
+  - Ecology
+  - Evolution
+  - Predator-prey
+license: "CC BY"
+copyright: 
+  holder: Shane L Hogle
+  year: 2024
+# citation: 
+#   container-title: BioRxiv
+#   volume: 
+#   issue: 
+#   doi: 
+funding: "The author received no specific funding for this work."
+---
+
+## Manuscript:
+
+### Published record
+
+**Temporal changes in the role of species sorting and evolution determine community dynamics.** Hoffman J^‡^, Hogle SL^‡^, Hiltunen T^◇^, Becks L^◇^. *Ecol. Lett.* (2024/5) [doi:]()
+
+*‡* equal contribution, ◇ Corresponding author and equal contribution
+
+### Preprint
+
+**Temporal changes in the role of species sorting and evolution determine community dynamics.** Hoffman J^*‡*^, Hogle SL^*‡*^, Hiltunen T^◇^, Becks L^◇^. (2024) [doi: 10.21203/rs.3.rs-4647074/v1](https://doi.org/10.1101/2023.10.31.565024)
+
+*‡* equal contribution, ◇ Corresponding author and equal contribution
+
+## Experiment overview
+
+This project is a collaboration between teams at University of Turku in Finland and the University of Konstanz in Germany. The repo contains data from an experiment investigating the relative roles of ecology and evolution in an multitrophic synthetic microbial ecosystem. 24 HAMBI bacterial species were individually grown and coevolved for 100 days (3% vol transfer every 4 days) with the generalist bacterivore *Tetrahymena thermophila* to generate 6 (replicates A-F) x 24 (species) coevolved bacterial and ciliate populations. Bacteria and ciliates were separated from the coevolution cocultures and bacteria made axenic via freeze-thaw. The 24 predator-coevolved bacterial species were pooled in equal proportions into a "coevolved" prey inoculum. Evolved phenotypically variable ciliates were taken from a 3 year long coevolution experiment (see Cairns 2018, Hogle 2022 Ecol Lett, Hogle 2022 ISME J) and were combined in equal proportions into a "Evolved" predator inoculum. Finally, the 24 clonal/ancestral bacterial species were pooled in equal proportions into a "ancestral" prey incolum and the ancestral *Tetrahymena* was used as the "ancestral" predator incolum. The inocula were used to start a serial transfer experiment in a full factorial design in six biological replicates (anc prey + anc pred, anc prey + evo pred, evo prey + anc pred, evo prey + evo pred). A no-predator treatment was also used (anc prey + no pred, evo prey + no pred). These evolutionary treatments were serially passaged every 48 hours (30% transfer - 1800 μl to 4.2mL fresh 5% KB medium). The serial transfer microcosms were grown for 60 days after which the experiment was terminated.
+
+## Measurements and data types
+
+There are many different types of data collected. However, not all data types were collected for all treatment combinations.
+
+-   Bacterial density (OD600) measured from replicates A-F in all treatment combinations at days 4, 8, 12, 16, 20, 24, 28, 32, 36, 40, 44, 48, 52, 56, 60
+-   Ciliate density (cells/ml) measured from replicates A-F in all treatment combinations at days 4, 8, 12, 16, 20, 24, 28, 32, 36, 40, 44, 48, 52, 56, 60
+-   Bacterial species frequencies (amplicon counts) were measured from replicates A, C, and E at days 4, 8, 12, 16, 20, 24, 28, 32, 36, 40, 44, 48, 52, 56, 60
+-   Bacterial species frequencies (amplicon counts) were measured from the "ancestral" and "evolved" inocula used to start the experiment (called "init"). Note this is not measurement from the actual experiment at T0, but a measurement of the inocula.
+-   Whole genome sequencing data (wgs) for all ancestral/clonal bacterial species (24 total)
+-   Whole genome sequencing data (wgs) for each coevolved bacterial species population used to inoculate replicates A,C, E (3 x 24 = 72 total).
+-   Metagenome sequencing data from all evolution treatment combinations, excluding the no predator control conditions (anc prey + no pred, evo prey + no pred) from replicates A, C, E and on days 8, 28, and 60.
+-   Initial defense traits (resistance to ciliate grazing) were measured by *XYZ* for:
+    -   All 24 ancestral bacterial species
+    -   All 24 co-evolved bacterial populations
+-   Evolved defense traits (resistance to ciliate grazing) for:
+    -   16 Random clones isolated from 8, 28, and 60 days for each prey/predator/dilution combination
+    -   Measure OD600 after 48 and 96 hours of growth with and without consumer
+
+## Data and Code
+
+[![DOI](https://zenodo.org/badge/411568623.svg)](https://zenodo.org/badge/latestdoi/411568623) Data and code here is provided under GPL3. Feel free to use or remix as you see fit.
+
+### Project structure
+
+1.  `/R` contains R scripts
+2.  `/data` contains data that has been processed in some way for later use
+3.  `/_data_raw` contains unprocessed data scraped from compute cluster
+4.  `/figs` contains figures generated from R scripts
+
+## Availability
+
+The rendered project site is available at <https://slhogle.github.io/hambiDoubleEvo/>. The website has been produced using [Quarto notebooks](https://quarto.org/).
+
+This GitLab repository (<https://github.com/slhogle/hambiDoubleEvo>) hosts the code and data for this project. The rendered webpage can be fully recreated using the code at <https://github.com/slhogle/hambiDoubleEvo>.
+
+## Reproducibility
+
+The project uses [`renv`](https://rstudio.github.io/renv/index.html) to create reproducible environment to execute the code in this project. [See here](https://rstudio.github.io/renv/articles/renv.html#collaboration) for a brief overview on collaboration and reproduction of the entire project. To get up and running you can do:
+
+``` r
+install.packages("renv")
+renv::restore()
+```

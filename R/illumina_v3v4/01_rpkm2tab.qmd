@@ -1,0 +1,143 @@
+---
+title: "Process and format amplicon count data"
+author: "Shane Hogle"
+date: today
+abstract: "This notebook formats 16S rRNA amplicon counts that have been mapped to HAMBI 16S genes."
+---
+
+# Setup
+
+Libraries and global variables
+
+```{r}
+#| output: false
+library(here)
+library(tidyverse)
+library(fs)
+library(archive)
+source(here::here("R", "utils_generic.R"))
+```
+
+Set up some directories
+
+```{r}
+#| output: false
+#| warning: false
+#| error: false
+data_raw <- here::here("_data_raw", "illumina_v3v4")
+amptar <- here::here(data_raw, "bbmap_rpkm.tar.gz")
+
+# create temporary location to decompress
+tmpdir <- fs::file_temp()
+
+# make processed data directory if it doesn't exist
+data <- here::here("data", "illumina_v3v4")
+fs::dir_create(data)
+```
+
+Untar and decompress
+
+```{r}
+# untar directory containing variant tables 
+archive::archive_extract(
+  amptar,
+  dir = tmpdir,
+  files = NULL,
+  options = character(),
+  strip_components = 0L
+)
+
+ampdir <- here::here(tmpdir, "bbmap_rpkm")
+```
+
+# Reading and small formatting of data
+
+Coverage data 
+```{r}
+ampfiles <- fs::dir_ls(
+  path = ampdir,
+  all = FALSE,
+  recurse = TRUE,
+  type = "file",
+  glob = "*.rpkm",
+  regexp = NULL,
+  invert = FALSE,
+  fail = TRUE
+)
+
+ampslurped <- readr::read_tsv(
+  ampfiles,
+  comment = "#",
+  col_names = c(
+    "strainID",
+    "Length",
+    "Bases",
+    "Coverage",
+    "count",
+    "RPKM",
+    "Frags",
+    "FPKM"
+  ),
+  col_types = "cddddddd",
+  id = "file_name"
+)
+```
+
+format the data nicely
+
+```{r}
+ampslurpedfmt <- ampslurped %>%
+  mutate(sample = str_extract(file_name, "HAMBI[:digit:]{4}")) %>%
+  left_join(tax, by = join_by(strainID)) %>% 
+  dplyr::select(sample, strainID, genus, species, count) %>% 
+  mutate(strainID = str_replace(strainID, "-", "_"))
+```
+
+cleanup temporary directory
+
+```{r}
+fs::dir_delete(tmpdir)
+```
+
+```{r}
+ampslurpedfmtnrm <- ampslurpedfmt %>% 
+  mutate(
+    count = case_when(
+      # trunc ensures we get integers. important for some alpha div measures
+      .$strainID == "HAMBI_1842" ~ trunc(.$count/4),
+      .$strainID == "HAMBI_2659" ~ trunc(.$count/2),
+      TRUE ~ as.numeric(.$count)
+    ))
+```
+
+```{r}
+#| include: false
+ampslurpedfmtnrm <- ampslurpedfmt %>% 
+  left_join(rRNA_counts, by = join_by(strainID)) %>% 
+  group_by(sample) %>% 
+  mutate(tot = sum(count)) %>% 
+  mutate(count_norm = count/copies) %>% 
+  mutate(f_norm = count_norm/sum(count_norm)) %>% 
+  mutate(count_norm = trunc(f_norm*tot)) %>% 
+  ungroup() %>% 
+  dplyr::select(sample:count, count_norm)
+```
+
+```{r}
+#| include: false
+# Check for low total read count samples
+ids_good <- ampslurpedfmtnrm |> 
+  group_by(sample) |> 
+  summarize(sum=sum(count)) |> 
+  filter(sum >= 10000) |> 
+  pull(sample)
+# exclude low count samples
+ampslurpedfmtnrmflt <-ampslurpedfmtnrm |> 
+  filter(sample %in% ids_good)
+```
+
+# Export
+
+```{r}
+write_tsv(ampslurpedfmtnrm, here(data, "species_counts.tsv"))
+```

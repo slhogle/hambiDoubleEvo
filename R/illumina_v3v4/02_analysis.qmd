@@ -1,0 +1,570 @@
+---
+title: "Analysis of community composition"
+author: "Shane Hogle"
+date: today
+abstract: "This notebook takes formatted 16S rRNA amplicon counts and plots and analyzes them in different ways to look at community composition"
+---
+
+# Setup
+
+Libraries and global variables
+
+```{r}
+#| output: false
+#| warning: false
+#| error: false
+library(tidyverse)
+library(here)
+library(fs)
+library(fishualize)
+library(Polychrome)
+library(withr)
+library(scales)
+library(patchwork)
+
+source(here::here("R", "utils_generic.R"))
+```
+
+Set up some directories
+
+```{r}
+#| output: false
+#| warning: false
+#| error: false
+#| 
+data_raw <- here::here("_data_raw", "illumina_v3v4")
+
+# make processed data directory if it doesn't exist
+data <- here::here("data", "illumina_v3v4")
+figs <- here::here("figs", "illumina_v3v4")
+
+fs::dir_create(data)
+fs::dir_create(figs)
+```
+
+## Some functions
+
+```{r}
+myarplot <- function(.data){
+  cil <- unique(.data$predator_history)
+  bac <- unique(.data$prey_history)
+  
+  mytitle <- case_when(cil == "anc"  & bac == "anc" ~ "anc bac + anc cil",
+                       cil == "anc"  & bac == "evo" ~ "evo bac + anc cil",
+                       cil == "evo"  & bac == "anc" ~ "anc bac + evo cil",
+                       cil == "evo"  & bac == "evo" ~ "evo bac + evo cil",
+                       cil == "nopredator" & bac == "anc" ~ "anc bac",
+                       cil == "nopredator" & bac == "evo" ~ "evo bac",
+                       #cil == "nopredator" & bac == "evo" ~ "starting anc bac",
+                       #cil == "nopredator" & bac == "evo" ~ "starting evo bac"
+  )
+  
+  ggplot(.data) +
+    geom_area(aes(x=time_days, y=f, fill=strainID),
+              color="black", size=0.1) +
+    facet_wrap( ~ replicate, strip.position = "bottom") +
+    scale_fill_manual(values = hambi_colors) + 
+    scale_y_continuous(limits = c(0,1), expand = c(0, 0), labels = scales::percent) +
+    scale_x_continuous(limits = c(4,60), breaks = c(20, 40, 60)) +
+    labs(x="", y="", fill="", title=mytitle) + 
+    theme_bw() + 
+    myartheme()
+  
+}
+
+myartheme <- function(...){
+  theme(
+    panel.spacing.x = unit(0.05,"line"),
+    strip.placement = 'outside',
+    strip.background.x = element_blank(),
+    panel.grid = element_blank(),
+    panel.border = element_blank(),
+    panel.background = element_blank(),
+    #axis.text.x = element_blank(),
+    axis.line.x = element_line(color = "black"),
+    axis.line.y = element_line(color = "black"),
+    legend.title = element_blank(),
+    legend.background = element_blank(),
+    legend.key = element_blank(),
+    ...)
+}
+
+strain.order <- c("HAMBI_2443", "HAMBI_3031", "HAMBI_1988", "HAMBI_3237", "HAMBI_0262", 
+                  "HAMBI_2159", "HAMBI_1842", "HAMBI_2164", "HAMBI_0006", "HAMBI_0097", 
+                  "HAMBI_2494", "HAMBI_1299", "HAMBI_2160", "HAMBI_1279", "HAMBI_2792", 
+                  "HAMBI_1896", "HAMBI_0105", "HAMBI_0403", "HAMBI_1977", "HAMBI_1923", 
+                  "HAMBI_2659", "HAMBI_1292", "HAMBI_1972", "HAMBI_1287")
+```
+
+Read data
+
+```{r}
+#| output: false
+#| warning: false
+#| error: false
+counts <- read_tsv(here::here(data, "species_counts.tsv"))
+metadf <- read_rds(here::here("data", "shared", "metadata_formatted.rds"))
+
+counts_f <- left_join(metadf, counts) %>% 
+  group_by(sample) %>% 
+  mutate(f=count/sum(count)) %>%  
+  ungroup() %>% 
+  filter(!is.na(strainID))
+```
+
+# Plot Community Composition
+
+community composition of the initial conditions
+
+```{r}
+pinit <- counts_f %>% 
+  mutate(strainID=factor(strainID, levels=strain.order)) %>% 
+  filter(str_detect(condition_prey_pred, "inoculum")) %>% 
+  ggplot() + 
+  geom_bar(aes(y = f, x=replicate, fill = strainID),
+           color="black", size=0.25, stat="identity") +
+  facet_grid(~ prey_history, scales="free_x") +
+  scale_fill_manual(values = hambi_colors) + 
+  scale_y_continuous(limits = c(0,1), expand = c(0, 0), labels = scales::percent) +
+  labs(x="", y="% abundance", fill="", title="Community composition in starting inocula") + 
+  theme_bw() + 
+  myartheme()
+```
+
+::: {#fig-01}
+```{r}
+#| warning: false
+#| error: false
+#| fig.width: 8
+#| fig.height: 7
+pinit
+```
+Community composition of the inoculae used to start the experiment
+:::
+
+```{r}
+#| echo: false
+ggsave(
+  here::here(figs, "species_comp_init.png"),
+  pinit,
+  width = 7,
+  height = 5,
+  units = "in",
+  device = "png",
+  dpi = 320
+)
+
+ggsave(
+  here::here(figs, "species_comp_init.pdf"),
+  pinit,
+  width = 7,
+  height = 5,
+  units = "in",
+  device = "pdf"
+)
+```
+
+Plot community compositions during the experiment
+
+```{r}
+phi <- counts_f %>% 
+  mutate(strainID=factor(strainID, levels=strain.order),
+         time_days = as.numeric(as.character(time_days))) %>% 
+  filter(!is.na(time_days)) %>% 
+  group_by(prey_history, predator_history) %>% 
+  group_split() %>% 
+  map(myarplot) %>% 
+  wrap_plots(., ncol = 3) +
+  plot_layout(guides = 'collect') +
+  plot_annotation(tag_levels = 'A') & 
+  theme(legend.position = 'bottom')
+```
+
+::: {#fig-02}
+```{r}
+#| warning: false
+#| error: false
+#| fig.width: 14
+#| fig.height: 8
+phi
+```
+Community composition temporal trajectories during the experiment
+:::
+
+```{r}
+#| echo: false
+ggsave(
+  here::here(figs, "species_comp_full.png"),
+  phi,
+  width = 14,
+  height = 8,
+  units = "in",
+  device = "png",
+  dpi = 320
+)
+
+ggsave(
+  here::here(figs, "species_comp_full.pdf"),
+  phi,
+  width = 14,
+  height = 8,
+  units = "in",
+  device = "pdf"
+)
+```
+
+# Ordination of community composition
+
+Need some additional libraries here
+
+```{r}
+#| output: false
+#| warning: false
+#| error: false
+library(compositions)
+library(zCompositions)
+library(vegan)
+library(ape)
+library(corrr)
+library(ggrepel)
+```
+
+## Transform data
+
+zCompositions has problems with species with \< 2 observations so we need to filter these out
+
+```{r}
+#| output: false
+#| warning: false
+#| error: false
+lowstrains <- counts_f %>% 
+  filter(!str_detect(condition_prey_pred, "inoculum")) %>% 
+  filter(!is.na(count)) %>% 
+  group_by(strainID) %>% 
+  summarize(n_samples = n(),
+            n_gt0 = sum(count > 0),
+            p_gt0 = n_gt0 / n_samples) %>% 
+  ungroup()
+```
+
+Here we remove strains present in \< 50 samples across transfer categories and present in \< 20 samples in at least 2/3 transfer categories
+
+```{r}
+lowstrainsv <- c(
+  "HAMBI_0097",
+  "HAMBI_0262",
+  "HAMBI_1842",
+  "HAMBI_1988",
+  "HAMBI_2443",
+  "HAMBI_2792",
+  "HAMBI_3031",
+  "HAMBI_3237"
+)
+```
+
+transform to matrix
+
+```{r}
+mymat <- counts_f %>% 
+  filter(!is.na(count)) %>% 
+  filter(strainID %nin% lowstrainsv) %>% 
+  filter(!str_detect(condition_prey_pred, "inoculum")) %>% 
+  dplyr::select(sample, strainID, count) %>% 
+  # important to arrange by sample as this makes some later joins easier
+  arrange(sample) %>% 
+  pivot_wider(names_from = "strainID", values_from = "count") %>% 
+  column_to_rownames(var = "sample") %>% 
+  data.frame()
+```
+
+## Replace zeros
+
+Compositional analysis with the centered log-ratio can't handle zero values. Some people just replace them with a pseudocount. Another way is to impute them based on various different strategies.
+
+Literature:
+
+-   [A field guide for the compositional analysis of any-omics data](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC6755255/)
+    -   [Supplemental material](https://zenodo.org/record/3270954#.Y1KastJBxhE)
+-   [zCompositions --- R package for multivariate imputation of left-censored data under a compositional approach](https://doi.org/10.1016/j.chemolab.2015.02.019)
+
+Here we will uses a Geometric Bayesian-multiplicative replacement strategy that preserves the ratios between the non-zero components. The "prop" option returns relative abundances.
+
+```{r}
+set.seed(12378)
+comp <- zCompositions::cmultRepl(mymat, method = "GBM", output = "prop")
+```
+
+## Calculate Bray-curtis dissimilarity
+
+```{r}
+set.seed(12353)
+bray_dist      <- vegan::vegdist(comp, method = "bray")
+pcoa_ord_bray  <- ape::pcoa(bray_dist)
+```
+
+## Calculate with Aitchison distance
+
+Aitchison distance is the Euclidean distance of the centered log-ratio transform (clr). This distance (unlike Euclidean distance on read counts) has scale invariance, perturbation invariance, permutation invariance and sub-compositional dominance.
+
+```{r}
+set.seed(12354)
+balclr     <- compositions::clr(comp)
+aitc_dist  <- vegan::vegdist(balclr, method = "euclidean")
+```
+
+## Compare Aitchison distance with CLR
+
+When the Aitchison distance is used in Principle co-ordinate Analysis (PCoA) it is equivalent to standard Principle Component Analyis (PCA) on the clr transformed data
+
+```{r}
+set.seed(12355)
+pcoa_ord_aitc  <- ape::pcoa(aitc_dist)
+pca_ord_aitc   <- prcomp(balclr)
+```
+
+For example, these ordinations are the same, just that Axis2 is the mirrorimage between. Since the rotation is arbitrary this does not matter.
+
+::: {#fig-03}
+```{r}
+#| warning: false
+#| error: false
+#| fig.width: 6
+#| fig.height: 6
+plot(pcoa_ord_aitc$vectors)
+```
+
+Plot of Principal Coordinate Analysis (PCoA) done in the Aitchison geometry of the simplex (i.e. PCoA on the euclidean distance of the centered log-ratio transform species compositions). 
+:::
+
+::: {#fig-04}
+```{r}
+#| warning: false
+#| error: false
+#| fig.width: 6
+#| fig.height: 6
+plot(pca_ord_aitc$x)
+```
+Plot of Principal Component Analysis (PCA) done in the Aitchison geometry of the simplex (i.e. PCA on the centered log-ratio transform species compositions). Notice that the PCoA using the euclidean distance of centered log-ratio transformed species frequencies is equivalent to the PCA directly using clr-transformed values in @fig-03.
+:::
+
+## Environment vectors
+
+left_join with metadata
+
+```{r}
+#| output: false
+#| warning: false
+#| error: false
+pca2plot <- data.frame(pca_ord_aitc$x) %>% 
+  rownames_to_column(var = "sample") %>% 
+  left_join(metadf) %>% 
+  arrange(sample) %>% 
+  mutate(expcombo=interaction(condition_prey_pred, time_days, sep = "_"))
+```
+
+About 85% of variance explained in first 5 PCs
+
+```{r}
+pca_ord_aitc_importance <- as.data.frame(summary(pca_ord_aitc)$importance) %>% 
+  rownames_to_column(var = "parameter")
+
+pca_ord_aitc_importance
+```
+
+Environmental/experimental variables associated with ordinatoion
+
+```{r}
+#| warning: false
+#| error: false
+ef <-
+  envfit(
+    pca_ord_aitc ~ prey_history + predator_history + ciliates_ml + time_days,
+    data = semi_join(metadf, dplyr::select(pca2plot, sample)),
+    na.rm = T,
+    choices = c(1, 2)
+  )
+```
+
+::: {#fig-05}
+```{r}
+#| warning: false
+#| error: false
+#| fig.width: 6
+#| fig.height: 6
+biplot(pca_ord_aitc, choices=c(1,2), labSize=0)
+plot(ef)
+```
+Environmental vectors plotted onto ordination in @fig-04
+:::
+
+### Significance of the environmental covariates
+
+```{r}
+ef
+```
+
+```{r}
+con_scrs <- as.data.frame(scores(ef, display = "vectors")) %>%
+  rownames_to_column(var = "var") %>% tibble()
+
+fct_scrs <- as.data.frame(scores(ef, display = "factors")) %>% 
+  rownames_to_column(var = "var") %>%  tibble()
+
+scale_factor <- 15
+```
+
+### Plot with prey history highlighted
+
+```{r}
+ppca <- ggplot(pca2plot) +
+  geom_point(aes(
+    x = PC1,
+    y = PC2,
+    color = prey_history,
+    shape = predator_history), size=3 ) +
+  geom_segment(data = con_scrs,
+               aes(x = 0, xend = PC1*scale_factor, y = 0, yend = PC2*scale_factor),
+               arrow = arrow(length = unit(0.25, "cm")), colour = "black") +
+  geom_text_repel(data = con_scrs, aes(x = PC1*scale_factor, y = PC2*scale_factor, label = var),
+                  size = 3) +
+  labs(x = paste0("PC1 (", round(pca_ord_aitc_importance[2,2]*100, 1),"%)"), 
+       y = paste0("PC2 (", round(pca_ord_aitc_importance[2,3]*100, 1),"%)")) +
+  stat_ellipse(aes(x = PC1, y = PC2, color = prey_history)) + 
+  coord_fixed() +
+  scale_color_manual(values = c("#88CCEE", "#CC6677")) +
+  scale_shape_manual(values = c(1, 0, 15)) +
+  theme_bw() +
+  theme(
+    panel.grid.major = element_blank(),
+    panel.grid.minor = element_blank(),
+    panel.background = element_blank(),
+  )
+```
+
+::: {#fig-06}
+```{r}
+#| echo: false
+ppca
+```
+Plot of principal component analysis (PCA) done in the Aitchison geometry of the simplex (i.e. centered log-ratio transform species compositions). Color shows evolutionary history of the prey and shape shows evolutionary history of the predator. Arrows and ellipses depict statistically significant (P < 0.05) experimental variables (continuous and categorical, resp) fit to the ordination axes via regression (`vegan::envfit`) and projected onto the ordination plot. Significance is assessed by permutation.
+:::
+
+```{r}
+#| echo: false
+ggsave(
+  here::here(figs, "ordination_final.png"),
+  ppca,
+  width = 12,
+  height = 6,
+  units = "in",
+  device = "png",
+  dpi = 320
+)
+
+ggsave(
+  here::here(figs, "ordination_final.pdf"),
+  ppca,
+  width = 12,
+  height = 6,
+  units = "in",
+  device = "pdf"
+)
+```
+
+### Plot with predator history highlighted
+
+::: {#fig-07}
+```{r}
+ggplot(pca2plot) +
+  geom_point(aes(
+    x = PC1,
+    y = PC2,
+    color = predator_history,
+    shape = prey_history), size=3 ) +
+  geom_segment(data = con_scrs,
+               aes(x = 0, xend = PC1*scale_factor, y = 0, yend = PC2*scale_factor),
+               arrow = arrow(length = unit(0.25, "cm")), colour = "black") +
+  geom_text_repel(data = con_scrs, aes(x = PC1*scale_factor, y = PC2*scale_factor, label = var),
+                  size = 3) +
+  labs(x = paste0("PC1 (", round(pca_ord_aitc_importance[2,2]*100, 1),"%)"), 
+       y = paste0("PC2 (", round(pca_ord_aitc_importance[2,3]*100, 1),"%)")) +
+  stat_ellipse(aes(x = PC1, y = PC2, color = predator_history)) + 
+  coord_fixed() +
+  theme_bw() +
+  theme(
+    panel.grid.major = element_blank(),
+    panel.grid.minor = element_blank(),
+    panel.background = element_blank(),
+  )
+
+```
+As in @Fig-06 but with predator evolutionary history highlighted in color.
+:::
+
+The evolved predator seems to "tighten" up the variation and make samplles with ancestral prey "look" more like the samples with evolved prey
+
+### PERMANOVA
+
+PERMANOVA suggests significant effect of predator and prey evolutionary history
+
+```{r}
+set.seed(45781)
+adonis2(aitc_dist ~ pca2plot$prey_history + pca2plot$predator_history,
+       permutations = 1e3)
+```
+
+Check for homogeneity of variance between these two categories. Suggests that they are different although maybe not by very much...
+
+```{r}
+set.seed(45782)
+bdprey <- betadisper(aitc_dist, pca2plot$prey_history)
+permutest(bdprey)
+```
+
+```{r}
+set.seed(45783)
+bdpred <- betadisper(aitc_dist, pca2plot$predator_history)
+permutest(bdpred)
+```
+
+
+## Geometric analysis of temporal trajectories in PCA
+
+Function to calculate euclidean distance between points
+```{r}
+euclidean_dist <- function(x1, x2, y1, y2){
+  sqrt((x1 - x2)^2 + (y1 - y2)^2)
+}
+```
+
+```{r}
+eucdist <- pca2plot %>% 
+  filter(prey_history != "none") %>%
+  filter(predator_history != "nopredator") %>% 
+  dplyr::select(PC1, PC2, replicate, prey_history, predator_history, time_days) %>% 
+  arrange(replicate, prey_history, predator_history, time_days) %>% 
+  group_by(replicate, prey_history, predator_history) %>% 
+  mutate(d = euclidean_dist(PC1, lag(PC1), PC2, lag(PC2)),
+         range = paste0(lag(time_days),"-",time_days)) %>%
+  mutate(range = forcats::fct_reorder(range, as.numeric(as.character((time_days))))) %>%
+  filter(range != "NA-4")
+
+write_tsv(eucdist, here::here(data, "aitchison_pca_distances.tsv"))
+```
+
+::: {#fig-08}
+```{r}
+ggplot(eucdist) +
+  geom_line(aes(x = range, y = d, color = replicate, group=replicate)) +
+  labs(x = "Time range (days)", y = "Euclidean distance between days") +
+  scale_x_discrete(guide = guide_axis(angle = 45)) +
+  facet_grid(prey_history ~ predator_history, labeller = label_both, scales = "free_x") +
+  theme_bw() +
+  theme(
+    legend.position = "bottom",
+    strip.placement = 'outside',
+    strip.background = element_blank(),
+    panel.grid = element_blank())
+```
+Geometric analysis of community trajectories based on PCA. Segment lengths between consecutive sampling days in the two PCA dimensions were calculated and plotted chronologically for each biological replicate in each treatment combination. As sampling intervals were of equal duration (except day 16 - 24), segment length represents relative speed of compositional change.
+:::
