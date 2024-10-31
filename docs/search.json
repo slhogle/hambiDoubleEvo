@@ -4,14 +4,14 @@
     "href": "index.html",
     "title": "Data analysis for the project hambiDoubleEvo",
     "section": "",
-    "text": "Temporal changes in the role of species sorting and evolution determine community dynamics. Hoffman J‡, Hogle SL‡, Hiltunen T◇, Becks L◇. Ecol. Lett. (2024/5) doi:\n‡ equal contribution, ◇ Corresponding author and equal contribution\n\n\n\nTemporal changes in the role of species sorting and evolution determine community dynamics. Hoffman J‡, Hogle SL‡, Hiltunen T◇, Becks L◇. (2024) doi: 10.21203/rs.3.rs-4647074/v1\n‡ equal contribution, ◇ Corresponding author and equal contribution"
+    "text": "‡ equal contribution, ◇ Corresponding author and equal contribution\n\n\nTemporal changes in the role of species sorting and evolution determine community dynamics\nHoffman J‡, Hogle SL‡, Hiltunen T◇, Becks L◇ XYZ (2024/5) doi:\n\n\n\nTemporal changes in the role of species sorting and evolution determine community dynamics\nHoffman J‡, Hogle SL‡, Hiltunen T◇, Becks L◇ Research Square(2024) doi: 10.21203/rs.3.rs-4647074/v1"
   },
   {
     "objectID": "index.html#manuscript",
     "href": "index.html#manuscript",
     "title": "Data analysis for the project hambiDoubleEvo",
     "section": "",
-    "text": "Temporal changes in the role of species sorting and evolution determine community dynamics. Hoffman J‡, Hogle SL‡, Hiltunen T◇, Becks L◇. Ecol. Lett. (2024/5) doi:\n‡ equal contribution, ◇ Corresponding author and equal contribution\n\n\n\nTemporal changes in the role of species sorting and evolution determine community dynamics. Hoffman J‡, Hogle SL‡, Hiltunen T◇, Becks L◇. (2024) doi: 10.21203/rs.3.rs-4647074/v1\n‡ equal contribution, ◇ Corresponding author and equal contribution"
+    "text": "‡ equal contribution, ◇ Corresponding author and equal contribution\n\n\nTemporal changes in the role of species sorting and evolution determine community dynamics\nHoffman J‡, Hogle SL‡, Hiltunen T◇, Becks L◇ XYZ (2024/5) doi:\n\n\n\nTemporal changes in the role of species sorting and evolution determine community dynamics\nHoffman J‡, Hogle SL‡, Hiltunen T◇, Becks L◇ Research Square(2024) doi: 10.21203/rs.3.rs-4647074/v1"
   },
   {
     "objectID": "index.html#experiment-overview",
@@ -32,21 +32,21 @@
     "href": "index.html#data-and-code",
     "title": "Data analysis for the project hambiDoubleEvo",
     "section": "4 Data and Code",
-    "text": "4 Data and Code\n Data and code here is provided under GPL3. Feel free to use or remix as you see fit.\n\n4.1 Project structure\n\n/R contains R scripts\n/data contains data that has been processed in some way for later use\n/_data_raw contains unprocessed data scraped from compute cluster\n/figs contains figures generated from R scripts"
+    "text": "4 Data and Code\n\nData and code here is provided under GPL3. Feel free to use or remix as you see fit.\n\n4.1 Project structure\n\n/R contains R scripts\n/data contains data that has been processed in some way for later use\n/_data_raw contains unprocessed data scraped from compute cluster\n/figs contains figures generated from R scripts"
   },
   {
     "objectID": "index.html#availability",
     "href": "index.html#availability",
     "title": "Data analysis for the project hambiDoubleEvo",
-    "section": "5 Availability",
-    "text": "5 Availability\nThe rendered project site is available at https://slhogle.github.io/hambiDoubleEvo/. The website has been produced using Quarto notebooks.\nThis GitLab repository (https://github.com/slhogle/hambiDoubleEvo) hosts the code and data for this project. The rendered webpage can be fully recreated using the code at https://github.com/slhogle/hambiDoubleEvo."
+    "section": "4 Availability",
+    "text": "4 Availability\nData and code in this GitHub repository (https://github.com/slhogle/hambiDoubleEvo) is provided under GNU AGPL3. Feel free to use or remix as you see fit. The rendered project site is available at https://slhogle.github.io/hambiDoubleEvo/, which has been produced using Quarto notebooks. The content on the rendered site is released under the CC BY 4.0. This repository hosts all code and data for this project including the code necessary to fully recreate the rendered webpage.\nAn archived release of the code here is available from Zenodo: \nRaw sequencing data using in the project is available from NCBI Bioproject PRJNA1179357."
   },
   {
     "objectID": "index.html#reproducibility",
     "href": "index.html#reproducibility",
     "title": "Data analysis for the project hambiDoubleEvo",
-    "section": "6 Reproducibility",
-    "text": "6 Reproducibility\nThe project uses renv to create reproducible environment to execute the code in this project. See here for a brief overview on collaboration and reproduction of the entire project. To get up and running you can do:\ninstall.packages(\"renv\")\nrenv::restore()"
+    "section": "5 Reproducibility",
+    "text": "5 Reproducibility\nThe project uses renv to create reproducible environment to execute the code in this project. See here for a brief overview on collaboration and reproduction of the entire project. To get up and running you can do:\ninstall.packages(\"renv\")\nrenv::restore()"
   },
   {
     "objectID": "R/wgs/01_format_variants.html",
