@@ -1,5 +1,13 @@
 # hambiDoubleEvo
 
+<!-- badges: start -->
+**Ecology Letters:** [![DOI:10.1111/ele.70033](https://img.shields.io/badge/DOI-10.1111/ele.70033-4F761F.svg)](https://doi.org/10.1111/ele.70033)
+
+**Research Square:** [![DOI:10.21203/rs.3.rs-4647074/v1](https://img.shields.io/badge/DOI-10.21203/rs.3.rs--4647074/v1-B31B1B.svg)](https://doi.org/10.21203/rs.3.rs-4647074/v1)
+
+**Code and data archive:** [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.14017296.svg)](https://doi.org/10.5281/zenodo.14017296)
+<!-- badges: end -->
+
 [Click here to view rendered notebooks of the analysis.](https://slhogle.github.io/hambiDoubleEvo/)
 
 ## Manuscript:
@@ -9,14 +17,12 @@
 ### Published record
 
 **Temporal changes in the role of species sorting and evolution determine community dynamics.**\
-Hoffman J<sup>‡</sup>, Hogle SL<sup>‡</sup>, Hiltunen T<sup>◇</sup>, Becks L<sup>◇</sup>. *XYZ* (2024/5) [doi:]()
+Hoffman J<sup>‡</sup>, Hogle SL<sup>‡</sup>, Hiltunen T<sup>◇</sup>, Becks L<sup>◇</sup>. *Ecol. Lett.* (2025) [doi: 10.1111/ele.70033](https://doi.org/10.1111/ele.70033)
 
 ### Preprint
 
 **Temporal changes in the role of species sorting and evolution determine community dynamics.**\
 Hoffman J<sup>‡</sup>, Hogle SL<sup>‡</sup>, Hiltunen T<sup>◇</sup>, Becks L<sup>◇</sup>. *Research Square* (2024) [doi: 10.21203/rs.3.rs-4647074/v1](https://doi.org/10.21203/rs.3.rs-4647074/v1)
-
-‡ equal contribution, ◇ Corresponding author and equal contribution
 
 ## Availability
 

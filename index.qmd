@@ -15,9 +15,7 @@ author:
         city: Konstanz
         state: Germany
         url: https://www.uni-konstanz.de/en/
-#abstract: > 
-#  The abstract text can go here 
-#  and also here ...
+abstract: "Evolutionary change within community members and shifts in species composition via species sorting contribute to community and trait dynamics. However, we do not understand when and how both processes contribute to community dynamics. Here, we estimated the contributions of species sorting and evolution over time (60 days) in bacterial communities of 24 species under selection by a ciliate predator. We found that species sorting contributed to increased community carrying capacity, while evolution contributed to decreased anti-predator defences. The relative roles of both processes changed over time, and our analysis indicates that if initial trait variation was in the direction of selection, species sorting prevailed, otherwise evolution drove phenotypic change. Furthermore, community composition, population densities and genomic evolution were affected by phenotypic match–mismatch combinations of predator and prey evolutionary history. Overall, our findings help to integrate when and how ecological and evolutionary processes structure communities."
 keywords:
   - Microbiology
   - Ecology
@@ -27,27 +25,31 @@ license: "CC BY"
 copyright: 
   holder: Shane L Hogle
   year: 2024
-# citation: 
-#   container-title: BioRxiv
-#   volume: 
-#   issue: 
-#   doi: 
-funding: "The author received no specific funding for this work."
+citation:
+  container-title: Ecology Letters
+  volume: 28
+  issue: 1
+  doi: 10.1111/ele.70033
+funding: "This work was supported by Deutsche Forschungsgemeinschaft (BE 4135/12-1), Research Council of Finland (#26081211), Research Council of Finland, Multidisciplinary Center of Excellence in Antimicrobial Resistance Research (#327741, #330886, #346126)."
 ---
 
-## Manuscript:
+## Records:
 
 ‡ equal contribution, ◇ Corresponding author and equal contribution
 
 ### Published record
 
-**Temporal changes in the role of species sorting and evolution determine community dynamics**\
-Hoffman J^‡^, Hogle SL^‡^, Hiltunen T^◇^, Becks L^◇^ *XYZ* (2024/5) [doi:]()
+**Temporal changes in the role of species sorting and evolution determine community dynamics.**\
+Hoffman J<sup>‡</sup>, Hogle SL<sup>‡</sup>, Hiltunen T<sup>◇</sup>, Becks L<sup>◇</sup>. *Ecology Letters* (2025) [![DOI:10.1111/ele.70033](https://img.shields.io/badge/DOI-10.1111/ele.70033-4F761F.svg)](https://doi.org/10.1111/ele.70033)
 
 ### Preprint
 
-**Temporal changes in the role of species sorting and evolution determine community dynamics**\
-Hoffman J^‡^, Hogle SL^‡^, Hiltunen T^◇^, Becks L^◇^ *Research Square*(2024) [doi: 10.21203/rs.3.rs-4647074/v1](https://doi.org/10.21203/rs.3.rs-4647074/v1)
+**Temporal changes in the role of species sorting and evolution determine community dynamics.**\
+Hoffman J<sup>‡</sup>, Hogle SL<sup>‡</sup>, Hiltunen T<sup>◇</sup>, Becks L<sup>◇</sup>. *Research Square* (2024) [![DOI:10.21203/rs.3.rs-4647074/v1](https://img.shields.io/badge/DOI-10.21203/rs.3.rs--4647074/v1-B31B1B.svg)](https://doi.org/10.21203/rs.3.rs-4647074/v1)
+
+### Code and data archive:
+
+An archived release of the code here is available from Zenodo:\ [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.14017296.svg)](https://doi.org/10.5281/zenodo.14017296)
 
 ## Experiment overview
 
@@ -73,11 +75,7 @@ There are many different types of data collected. However, not all data types we
 
 ## Availability
 
-Data and code in this GitHub repository (<https://github.com/slhogle/hambiDoubleEvo>) is provided under [GNU AGPL3](https://www.gnu.org/licenses/agpl-3.0.html). Feel free to use or remix as you see fit. 
-The rendered project site is available at <https://slhogle.github.io/hambiDoubleEvo/>, which has been produced using [Quarto notebooks](https://quarto.org/). The content on the rendered site is released under the [CC BY 4.0.](https://creativecommons.org/licenses/by/4.0/)
-This repository hosts all code and data for this project including the code necessary to fully recreate the rendered webpage.
-
-An archived release of the code here is available from Zenodo: [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.14017296.svg)](https://doi.org/10.5281/zenodo.14017296) 
+Data and code in this GitHub repository (<https://github.com/slhogle/hambiDoubleEvo>) is provided under [GNU AGPL3](https://www.gnu.org/licenses/agpl-3.0.html). Feel free to use or remix as you see fit. The rendered project site is available at <https://slhogle.github.io/hambiDoubleEvo/>, which has been produced using [Quarto notebooks](https://quarto.org/). The content on the rendered site is released under the [CC BY 4.0.](https://creativecommons.org/licenses/by/4.0/) This repository hosts all code and data for this project including the code necessary to fully recreate the rendered webpage.
 
 Raw sequencing data using in the project is available from NCBI Bioproject [PRJNA1179357](https://www.ncbi.nlm.nih.gov/bioproject/PRJNA1179357).
 

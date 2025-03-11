@@ -2,16 +2,16 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.4.553">
+<meta name="generator" content="quarto-1.6.42">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="author" content="Shane L Hogle">
 <meta name="author" content="Julius Hoffmann">
-<meta name="dcterms.date" content="2024-10-31">
+<meta name="dcterms.date" content="2025-03-11">
 <meta name="keywords" content="Microbiology, Ecology, Evolution, Predator-prey">
 
-<title>hambiDoubleEvo - Data analysis for the project hambiDoubleEvo</title>
+<title>Data analysis for the project hambiDoubleEvo – hambiDoubleEvo</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -37,7 +37,7 @@ div.sourceCode { overflow: auto; }
 }
 @media print {
 pre > code.sourceCode { white-space: pre-wrap; }
-pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
 }
 pre.numberSource code
   { counter-reset: source-line 0; }
@@ -73,10 +73,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="site_libs/quarto-html/anchor.min.js"></script>
 <link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-2f5df379a58b258e96c21c0638c20c03.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<link href="site_libs/bootstrap/bootstrap-1f23bf93a17969024013c136d185e5ce.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "sidebar",
   "copy-button": false,
@@ -114,15 +114,15 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <header id="quarto-header" class="headroom fixed-top">
   <nav class="quarto-secondary-nav">
     <div class="container-fluid d-flex">
-      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
         <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item">
       hambiDoubleEvo
       </li></ol></nav>
-        <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
-      <button type="button" class="btn quarto-search-button" aria-label="" onclick="window.quartoOpenSearch();">
+      <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
         <i class="bi bi-search"></i>
       </button>
     </div>
@@ -146,9 +146,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <ul class="list-unstyled mt-1">
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true">
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true">
  <span class="menu-text">Community composition amplicon</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true" aria-label="Toggle section">
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
@@ -169,9 +169,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="true">
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true">
  <span class="menu-text">Population WGS</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="true" aria-label="Toggle section">
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
@@ -192,9 +192,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" aria-expanded="true">
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true">
  <span class="menu-text">Metagenome sequencing</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" aria-expanded="true" aria-label="Toggle section">
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
@@ -235,10 +235,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#manuscript" id="toc-manuscript" class="nav-link active" data-scroll-target="#manuscript"><span class="header-section-number">1</span> Manuscript:</a>
+  <li><a href="#records" id="toc-records" class="nav-link active" data-scroll-target="#records"><span class="header-section-number">1</span> Records:</a>
   <ul class="collapse">
   <li><a href="#published-record" id="toc-published-record" class="nav-link" data-scroll-target="#published-record"><span class="header-section-number">1.1</span> Published record</a></li>
   <li><a href="#preprint" id="toc-preprint" class="nav-link" data-scroll-target="#preprint"><span class="header-section-number">1.2</span> Preprint</a></li>
+  <li><a href="#code-and-data-archive" id="toc-code-and-data-archive" class="nav-link" data-scroll-target="#code-and-data-archive"><span class="header-section-number">1.3</span> Code and data archive:</a></li>
   </ul></li>
   <li><a href="#experiment-overview" id="toc-experiment-overview" class="nav-link" data-scroll-target="#experiment-overview"><span class="header-section-number">2</span> Experiment overview</a></li>
   <li><a href="#measurements-and-data-types" id="toc-measurements-and-data-types" class="nav-link" data-scroll-target="#measurements-and-data-types"><span class="header-section-number">3</span> Measurements and data types</a></li>
@@ -288,13 +289,19 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <div>
     <div class="quarto-title-meta-heading">Published</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">October 31, 2024</p>
+      <p class="date">March 11, 2025</p>
     </div>
   </div>
   
     
   </div>
   
+<div>
+  <div class="abstract">
+    <div class="block-title">Abstract</div>
+    Evolutionary change within community members and shifts in species composition via species sorting contribute to community and trait dynamics. However, we do not understand when and how both processes contribute to community dynamics. Here, we estimated the contributions of species sorting and evolution over time (60 days) in bacterial communities of 24 species under selection by a ciliate predator. We found that species sorting contributed to increased community carrying capacity, while evolution contributed to decreased anti-predator defences. The relative roles of both processes changed over time, and our analysis indicates that if initial trait variation was in the direction of selection, species sorting prevailed, otherwise evolution drove phenotypic change. Furthermore, community composition, population densities and genomic evolution were affected by phenotypic match–mismatch combinations of predator and prey evolutionary history. Overall, our findings help to integrate when and how ecological and evolutionary processes structure communities.
+  </div>
+</div>
 
 <div>
   <div class="keywords">
@@ -306,18 +313,22 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </header>
 
 
-<section id="manuscript" class="level2" data-number="1">
-<h2 data-number="1" class="anchored" data-anchor-id="manuscript"><span class="header-section-number">1</span> Manuscript:</h2>
+<section id="records" class="level2" data-number="1">
+<h2 data-number="1" class="anchored" data-anchor-id="records"><span class="header-section-number">1</span> Records:</h2>
 <p>‡ equal contribution, ◇ Corresponding author and equal contribution</p>
 <section id="published-record" class="level3" data-number="1.1">
 <h3 data-number="1.1" class="anchored" data-anchor-id="published-record"><span class="header-section-number">1.1</span> Published record</h3>
-<p><strong>Temporal changes in the role of species sorting and evolution determine community dynamics</strong><br>
-Hoffman J<sup>‡</sup>, Hogle SL<sup>‡</sup>, Hiltunen T<sup>◇</sup>, Becks L<sup>◇</sup> <em>XYZ</em> (2024/5) <a href="">doi:</a></p>
+<p><strong>Temporal changes in the role of species sorting and evolution determine community dynamics.</strong><br>
+Hoffman J<sup>‡</sup>, Hogle SL<sup>‡</sup>, Hiltunen T<sup>◇</sup>, Becks L<sup>◇</sup>. <em>Ecology Letters</em> (2025) <a href="https://doi.org/10.1111/ele.70033"><img src="https://img.shields.io/badge/DOI-10.1111/ele.70033-4F761F.svg" class="img-fluid" alt="DOI:10.1111/ele.70033"></a></p>
 </section>
 <section id="preprint" class="level3" data-number="1.2">
 <h3 data-number="1.2" class="anchored" data-anchor-id="preprint"><span class="header-section-number">1.2</span> Preprint</h3>
-<p><strong>Temporal changes in the role of species sorting and evolution determine community dynamics</strong><br>
-Hoffman J<sup>‡</sup>, Hogle SL<sup>‡</sup>, Hiltunen T<sup>◇</sup>, Becks L<sup>◇</sup> <em>Research Square</em>(2024) <a href="https://doi.org/10.21203/rs.3.rs-4647074/v1">doi: 10.21203/rs.3.rs-4647074/v1</a></p>
+<p><strong>Temporal changes in the role of species sorting and evolution determine community dynamics.</strong><br>
+Hoffman J<sup>‡</sup>, Hogle SL<sup>‡</sup>, Hiltunen T<sup>◇</sup>, Becks L<sup>◇</sup>. <em>Research Square</em> (2024) <a href="https://doi.org/10.21203/rs.3.rs-4647074/v1"><img src="https://img.shields.io/badge/DOI-10.21203/rs.3.rs--4647074/v1-B31B1B.svg" class="img-fluid" alt="DOI:10.21203/rs.3.rs-4647074/v1"></a></p>
+</section>
+<section id="code-and-data-archive" class="level3" data-number="1.3">
+<h3 data-number="1.3" class="anchored" data-anchor-id="code-and-data-archive"><span class="header-section-number">1.3</span> Code and data archive:</h3>
+<p>An archived release of the code here is available from Zenodo:&nbsp;<a href="https://doi.org/10.5281/zenodo.14017296"><img src="https://zenodo.org/badge/DOI/10.5281/zenodo.14017296.svg" class="img-fluid" alt="DOI"></a></p>
 </section>
 </section>
 <section id="experiment-overview" class="level2" data-number="2">
@@ -350,7 +361,6 @@ Hoffman J<sup>‡</sup>, Hogle SL<sup>‡</sup>, Hiltunen T<sup>◇</sup>, Becks
 <section id="availability" class="level2" data-number="4">
 <h2 data-number="4" class="anchored" data-anchor-id="availability"><span class="header-section-number">4</span> Availability</h2>
 <p>Data and code in this GitHub repository (<a href="https://github.com/slhogle/hambiDoubleEvo" class="uri">https://github.com/slhogle/hambiDoubleEvo</a>) is provided under <a href="https://www.gnu.org/licenses/agpl-3.0.html">GNU AGPL3</a>. Feel free to use or remix as you see fit. The rendered project site is available at <a href="https://slhogle.github.io/hambiDoubleEvo/" class="uri">https://slhogle.github.io/hambiDoubleEvo/</a>, which has been produced using <a href="https://quarto.org/">Quarto notebooks</a>. The content on the rendered site is released under the <a href="https://creativecommons.org/licenses/by/4.0/">CC BY 4.0.</a> This repository hosts all code and data for this project including the code necessary to fully recreate the rendered webpage.</p>
-<p>An archived release of the code here is available from Zenodo: <a href="https://doi.org/10.5281/zenodo.14017296"><img src="https://zenodo.org/badge/DOI/10.5281/zenodo.14017296.svg" class="img-fluid" alt="DOI"></a></p>
 <p>Raw sequencing data using in the project is available from NCBI Bioproject <a href="https://www.ncbi.nlm.nih.gov/bioproject/PRJNA1179357">PRJNA1179357</a>.</p>
 </section>
 <section id="reproducibility" class="level2" data-number="5">
@@ -364,7 +374,36 @@ Hoffman J<sup>‡</sup>, Hogle SL<sup>‡</sup>, Hiltunen T<sup>◇</sup>, Becks
 
 </section>
 
-<div id="quarto-appendix" class="default"><section class="quarto-appendix-contents" id="quarto-reuse"><h2 class="anchored quarto-appendix-heading">Reuse</h2><div class="quarto-appendix-contents"><div><a rel="license" href="https://creativecommons.org/licenses/by/4.0/">CC BY 4.0</a></div></div></section></div></main> <!-- /main -->
+<div id="quarto-appendix" class="default"><section class="quarto-appendix-contents" id="quarto-reuse"><h2 class="anchored quarto-appendix-heading">Reuse</h2><div class="quarto-appendix-contents"><div><a rel="license" href="https://creativecommons.org/licenses/by/4.0/">CC BY 4.0</a></div></div></section><section class="quarto-appendix-contents" id="quarto-citation"><h2 class="anchored quarto-appendix-heading">Citation</h2><div><div class="quarto-appendix-secondary-label">BibTeX citation:</div><pre class="sourceCode code-with-copy quarto-appendix-bibtex"><code class="sourceCode bibtex">@online{l_hogle2025,
+  author = {L Hogle, Shane and Hoffmann, Julius},
+  title = {Data Analysis for the Project {hambiDoubleEvo}},
+  volume = {28},
+  number = {1},
+  date = {2025-03-11},
+  doi = {10.1111/ele.70033},
+  langid = {en},
+  abstract = {Evolutionary change within community members and shifts in
+    species composition via species sorting contribute to community and
+    trait dynamics. However, we do not understand when and how both
+    processes contribute to community dynamics. Here, we estimated the
+    contributions of species sorting and evolution over time (60 days)
+    in bacterial communities of 24 species under selection by a ciliate
+    predator. We found that species sorting contributed to increased
+    community carrying capacity, while evolution contributed to
+    decreased anti-predator defences. The relative roles of both
+    processes changed over time, and our analysis indicates that if
+    initial trait variation was in the direction of selection, species
+    sorting prevailed, otherwise evolution drove phenotypic change.
+    Furthermore, community composition, population densities and genomic
+    evolution were affected by phenotypic match–mismatch combinations of
+    predator and prey evolutionary history. Overall, our findings help
+    to integrate when and how ecological and evolutionary processes
+    structure communities.}
+}
+</code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre><div class="quarto-appendix-secondary-label">For attribution, please cite this work as:</div><div id="ref-l_hogle2025" class="csl-entry quarto-appendix-citeas" role="listitem">
+L Hogle, Shane, and Julius Hoffmann. 2025. <span>“Data Analysis for the
+Project hambiDoubleEvo.”</span> Ecology Letters. March 11, 2025. <a href="https://doi.org/10.1111/ele.70033">https://doi.org/10.1111/ele.70033</a>.
+</div></div></section></div></main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
 window.document.addEventListener("DOMContentLoaded", function (event) {
   const toggleBodyColorMode = (bsSheetEl) => {
@@ -400,18 +439,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     }
     return false;
   }
-  const clipboard = new window.ClipboardJS('.code-copy-button', {
-    text: function(trigger) {
-      const codeEl = trigger.previousElementSibling.cloneNode(true);
-      for (const childEl of codeEl.children) {
-        if (isCodeAnnotation(childEl)) {
-          childEl.remove();
-        }
-      }
-      return codeEl.innerText;
-    }
-  });
-  clipboard.on('success', function(e) {
+  const onCopySuccess = function(e) {
     // button target
     const button = e.trigger;
     // don't keep focus
@@ -443,7 +471,27 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     }, 1000);
     // clear code selection
     e.clearSelection();
+  }
+  const getTextToCopy = function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+    text: getTextToCopy
   });
+  clipboard.on('success', onCopySuccess);
+  if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+    const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+      text: getTextToCopy,
+      container: window.document.getElementById('quarto-embedded-source-code-modal')
+    });
+    clipboardModal.on('success', onCopySuccess);
+  }
   const viewSource = window.document.getElementById('quarto-view-source') ||
                      window.document.getElementById('quarto-code-tools-source');
   if (viewSource) {
@@ -502,7 +550,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
         return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
     }
     // Inspect non-navigation links and adorn them if external
- 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool)');
+ 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
     for (var i=0; i<links.length; i++) {
       const link = links[i];
       if (!isInternal(link.href)) {
@@ -599,7 +647,6 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       if (window.Quarto?.typesetMath) {
         window.Quarto.typesetMath(note);
       }
-      // TODO in 1.5, we should make sure this works without a callout special case
       if (note.classList.contains("callout")) {
         return note.outerHTML;
       } else {
@@ -842,80 +889,78 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 <span id="cb2-15"><a href="#cb2-15"></a><span class="co">        city: Konstanz</span></span>
 <span id="cb2-16"><a href="#cb2-16"></a><span class="co">        state: Germany</span></span>
 <span id="cb2-17"><a href="#cb2-17"></a><span class="co">        url: https://www.uni-konstanz.de/en/</span></span>
-<span id="cb2-18"><a href="#cb2-18"></a><span class="co">#abstract: &gt; </span></span>
-<span id="cb2-19"><a href="#cb2-19"></a><span class="co">#  The abstract text can go here </span></span>
-<span id="cb2-20"><a href="#cb2-20"></a><span class="co">#  and also here ...</span></span>
-<span id="cb2-21"><a href="#cb2-21"></a><span class="an">keywords:</span></span>
-<span id="cb2-22"><a href="#cb2-22"></a><span class="co">  - Microbiology</span></span>
-<span id="cb2-23"><a href="#cb2-23"></a><span class="co">  - Ecology</span></span>
-<span id="cb2-24"><a href="#cb2-24"></a><span class="co">  - Evolution</span></span>
-<span id="cb2-25"><a href="#cb2-25"></a><span class="co">  - Predator-prey</span></span>
-<span id="cb2-26"><a href="#cb2-26"></a><span class="an">license:</span><span class="co"> "CC BY"</span></span>
-<span id="cb2-27"><a href="#cb2-27"></a><span class="an">copyright:</span><span class="co"> </span></span>
-<span id="cb2-28"><a href="#cb2-28"></a><span class="co">  holder: Shane L Hogle</span></span>
-<span id="cb2-29"><a href="#cb2-29"></a><span class="co">  year: 2024</span></span>
-<span id="cb2-30"><a href="#cb2-30"></a><span class="co"># citation: </span></span>
-<span id="cb2-31"><a href="#cb2-31"></a><span class="co">#   container-title: BioRxiv</span></span>
-<span id="cb2-32"><a href="#cb2-32"></a><span class="co">#   volume: </span></span>
-<span id="cb2-33"><a href="#cb2-33"></a><span class="co">#   issue: </span></span>
-<span id="cb2-34"><a href="#cb2-34"></a><span class="co">#   doi: </span></span>
-<span id="cb2-35"><a href="#cb2-35"></a><span class="an">funding:</span><span class="co"> "The author received no specific funding for this work."</span></span>
-<span id="cb2-36"><a href="#cb2-36"></a><span class="co">---</span></span>
+<span id="cb2-18"><a href="#cb2-18"></a><span class="an">abstract:</span><span class="co"> "Evolutionary change within community members and shifts in species composition via species sorting contribute to community and trait dynamics. However, we do not understand when and how both processes contribute to community dynamics. Here, we estimated the contributions of species sorting and evolution over time (60 days) in bacterial communities of 24 species under selection by a ciliate predator. We found that species sorting contributed to increased community carrying capacity, while evolution contributed to decreased anti-predator defences. The relative roles of both processes changed over time, and our analysis indicates that if initial trait variation was in the direction of selection, species sorting prevailed, otherwise evolution drove phenotypic change. Furthermore, community composition, population densities and genomic evolution were affected by phenotypic match–mismatch combinations of predator and prey evolutionary history. Overall, our findings help to integrate when and how ecological and evolutionary processes structure communities."</span></span>
+<span id="cb2-19"><a href="#cb2-19"></a><span class="an">keywords:</span></span>
+<span id="cb2-20"><a href="#cb2-20"></a><span class="co">  - Microbiology</span></span>
+<span id="cb2-21"><a href="#cb2-21"></a><span class="co">  - Ecology</span></span>
+<span id="cb2-22"><a href="#cb2-22"></a><span class="co">  - Evolution</span></span>
+<span id="cb2-23"><a href="#cb2-23"></a><span class="co">  - Predator-prey</span></span>
+<span id="cb2-24"><a href="#cb2-24"></a><span class="an">license:</span><span class="co"> "CC BY"</span></span>
+<span id="cb2-25"><a href="#cb2-25"></a><span class="an">copyright:</span><span class="co"> </span></span>
+<span id="cb2-26"><a href="#cb2-26"></a><span class="co">  holder: Shane L Hogle</span></span>
+<span id="cb2-27"><a href="#cb2-27"></a><span class="co">  year: 2024</span></span>
+<span id="cb2-28"><a href="#cb2-28"></a><span class="an">citation:</span></span>
+<span id="cb2-29"><a href="#cb2-29"></a><span class="co">  container-title: Ecology Letters</span></span>
+<span id="cb2-30"><a href="#cb2-30"></a><span class="co">  volume: 28</span></span>
+<span id="cb2-31"><a href="#cb2-31"></a><span class="co">  issue: 1</span></span>
+<span id="cb2-32"><a href="#cb2-32"></a><span class="co">  doi: 10.1111/ele.70033</span></span>
+<span id="cb2-33"><a href="#cb2-33"></a><span class="an">funding:</span><span class="co"> "This work was supported by Deutsche Forschungsgemeinschaft (BE 4135/12-1), Research Council of Finland (#26081211), Research Council of Finland, Multidisciplinary Center of Excellence in Antimicrobial Resistance Research (#327741, #330886, #346126)."</span></span>
+<span id="cb2-34"><a href="#cb2-34"></a><span class="co">---</span></span>
+<span id="cb2-35"><a href="#cb2-35"></a></span>
+<span id="cb2-36"><a href="#cb2-36"></a><span class="fu">## Records:</span></span>
 <span id="cb2-37"><a href="#cb2-37"></a></span>
-<span id="cb2-38"><a href="#cb2-38"></a><span class="fu">## Manuscript:</span></span>
+<span id="cb2-38"><a href="#cb2-38"></a>‡ equal contribution, ◇ Corresponding author and equal contribution</span>
 <span id="cb2-39"><a href="#cb2-39"></a></span>
-<span id="cb2-40"><a href="#cb2-40"></a>‡ equal contribution, ◇ Corresponding author and equal contribution</span>
+<span id="cb2-40"><a href="#cb2-40"></a><span class="fu">### Published record</span></span>
 <span id="cb2-41"><a href="#cb2-41"></a></span>
-<span id="cb2-42"><a href="#cb2-42"></a><span class="fu">### Published record</span></span>
-<span id="cb2-43"><a href="#cb2-43"></a></span>
-<span id="cb2-44"><a href="#cb2-44"></a>**Temporal changes in the role of species sorting and evolution determine community dynamics**\</span>
-<span id="cb2-45"><a href="#cb2-45"></a>Hoffman J^‡^, Hogle SL^‡^, Hiltunen T^◇^, Becks L^◇^ *XYZ* (2024/5) <span class="co">[</span><span class="ot">doi:</span><span class="co">]()</span></span>
+<span id="cb2-42"><a href="#cb2-42"></a>**Temporal changes in the role of species sorting and evolution determine community dynamics.**\</span>
+<span id="cb2-43"><a href="#cb2-43"></a>Hoffman J&lt;sup&gt;‡&lt;/sup&gt;, Hogle SL&lt;sup&gt;‡&lt;/sup&gt;, Hiltunen T&lt;sup&gt;◇&lt;/sup&gt;, Becks L&lt;sup&gt;◇&lt;/sup&gt;. *Ecology Letters* (2025) <span class="co">[</span><span class="al">![DOI:10.1111/ele.70033](https://img.shields.io/badge/DOI-10.1111/ele.70033-4F761F.svg)</span><span class="co">](https://doi.org/10.1111/ele.70033)</span></span>
+<span id="cb2-44"><a href="#cb2-44"></a></span>
+<span id="cb2-45"><a href="#cb2-45"></a><span class="fu">### Preprint</span></span>
 <span id="cb2-46"><a href="#cb2-46"></a></span>
-<span id="cb2-47"><a href="#cb2-47"></a><span class="fu">### Preprint</span></span>
-<span id="cb2-48"><a href="#cb2-48"></a></span>
-<span id="cb2-49"><a href="#cb2-49"></a>**Temporal changes in the role of species sorting and evolution determine community dynamics**\</span>
-<span id="cb2-50"><a href="#cb2-50"></a>Hoffman J^‡^, Hogle SL^‡^, Hiltunen T^◇^, Becks L^◇^ *Research Square*(2024) <span class="co">[</span><span class="ot">doi: 10.21203/rs.3.rs-4647074/v1</span><span class="co">](https://doi.org/10.21203/rs.3.rs-4647074/v1)</span></span>
+<span id="cb2-47"><a href="#cb2-47"></a>**Temporal changes in the role of species sorting and evolution determine community dynamics.**\</span>
+<span id="cb2-48"><a href="#cb2-48"></a>Hoffman J&lt;sup&gt;‡&lt;/sup&gt;, Hogle SL&lt;sup&gt;‡&lt;/sup&gt;, Hiltunen T&lt;sup&gt;◇&lt;/sup&gt;, Becks L&lt;sup&gt;◇&lt;/sup&gt;. *Research Square* (2024) <span class="co">[</span><span class="al">![DOI:10.21203/rs.3.rs-4647074/v1](https://img.shields.io/badge/DOI-10.21203/rs.3.rs--4647074/v1-B31B1B.svg)</span><span class="co">](https://doi.org/10.21203/rs.3.rs-4647074/v1)</span></span>
+<span id="cb2-49"><a href="#cb2-49"></a></span>
+<span id="cb2-50"><a href="#cb2-50"></a><span class="fu">### Code and data archive:</span></span>
 <span id="cb2-51"><a href="#cb2-51"></a></span>
-<span id="cb2-52"><a href="#cb2-52"></a><span class="fu">## Experiment overview</span></span>
+<span id="cb2-52"><a href="#cb2-52"></a>An archived release of the code here is available from Zenodo:\ <span class="co">[</span><span class="al">![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.14017296.svg)</span><span class="co">](https://doi.org/10.5281/zenodo.14017296)</span></span>
 <span id="cb2-53"><a href="#cb2-53"></a></span>
-<span id="cb2-54"><a href="#cb2-54"></a>This project is a collaboration between teams at University of Turku in Finland and the University of Konstanz in Germany. The repo contains data from an experiment investigating the relative roles of ecology and evolution in an multitrophic synthetic microbial ecosystem. 24 HAMBI bacterial species were individually grown and coevolved for 100 days (3% vol transfer every 4 days) with the generalist bacterivore *Tetrahymena thermophila* to generate 6 (replicates A-F) x 24 (species) coevolved bacterial and ciliate populations. Bacteria and ciliates were separated from the coevolution cocultures and bacteria made axenic via freeze-thaw. The 24 predator-coevolved bacterial species were pooled in equal proportions into a "coevolved" prey inoculum. Evolved phenotypically variable ciliates were taken from a 3 year long coevolution experiment (see Cairns 2018, Hogle 2022 Ecol Lett, Hogle 2022 ISME J) and were combined in equal proportions into a "Evolved" predator inoculum. Finally, the 24 clonal/ancestral bacterial species were pooled in equal proportions into a "ancestral" prey incolum and the ancestral *Tetrahymena* was used as the "ancestral" predator incolum. The inocula were used to start a serial transfer experiment in a full factorial design in six biological replicates (anc prey + anc pred, anc prey + evo pred, evo prey + anc pred, evo prey + evo pred). A no-predator treatment was also used (anc prey + no pred, evo prey + no pred). These evolutionary treatments were serially passaged every 48 hours (30% transfer - 1800 μl to 4.2mL fresh 5% KB medium). The serial transfer microcosms were grown for 60 days after which the experiment was terminated.</span>
+<span id="cb2-54"><a href="#cb2-54"></a><span class="fu">## Experiment overview</span></span>
 <span id="cb2-55"><a href="#cb2-55"></a></span>
-<span id="cb2-56"><a href="#cb2-56"></a><span class="fu">## Measurements and data types</span></span>
+<span id="cb2-56"><a href="#cb2-56"></a>This project is a collaboration between teams at University of Turku in Finland and the University of Konstanz in Germany. The repo contains data from an experiment investigating the relative roles of ecology and evolution in an multitrophic synthetic microbial ecosystem. 24 HAMBI bacterial species were individually grown and coevolved for 100 days (3% vol transfer every 4 days) with the generalist bacterivore *Tetrahymena thermophila* to generate 6 (replicates A-F) x 24 (species) coevolved bacterial and ciliate populations. Bacteria and ciliates were separated from the coevolution cocultures and bacteria made axenic via freeze-thaw. The 24 predator-coevolved bacterial species were pooled in equal proportions into a "coevolved" prey inoculum. Evolved phenotypically variable ciliates were taken from a 3 year long coevolution experiment (see Cairns 2018, Hogle 2022 Ecol Lett, Hogle 2022 ISME J) and were combined in equal proportions into a "Evolved" predator inoculum. Finally, the 24 clonal/ancestral bacterial species were pooled in equal proportions into a "ancestral" prey incolum and the ancestral *Tetrahymena* was used as the "ancestral" predator incolum. The inocula were used to start a serial transfer experiment in a full factorial design in six biological replicates (anc prey + anc pred, anc prey + evo pred, evo prey + anc pred, evo prey + evo pred). A no-predator treatment was also used (anc prey + no pred, evo prey + no pred). These evolutionary treatments were serially passaged every 48 hours (30% transfer - 1800 μl to 4.2mL fresh 5% KB medium). The serial transfer microcosms were grown for 60 days after which the experiment was terminated.</span>
 <span id="cb2-57"><a href="#cb2-57"></a></span>
-<span id="cb2-58"><a href="#cb2-58"></a>There are many different types of data collected. However, not all data types were collected for all treatment combinations.</span>
+<span id="cb2-58"><a href="#cb2-58"></a><span class="fu">## Measurements and data types</span></span>
 <span id="cb2-59"><a href="#cb2-59"></a></span>
-<span id="cb2-60"><a href="#cb2-60"></a><span class="ss">-   </span>Bacterial density (OD600) measured from replicates A-F in all treatment combinations at days 4, 8, 12, 16, 20, 24, 28, 32, 36, 40, 44, 48, 52, 56, 60</span>
-<span id="cb2-61"><a href="#cb2-61"></a><span class="ss">-   </span>Ciliate density (cells/ml) measured from replicates A-F in all treatment combinations at days 4, 8, 12, 16, 20, 24, 28, 32, 36, 40, 44, 48, 52, 56, 60</span>
-<span id="cb2-62"><a href="#cb2-62"></a><span class="ss">-   </span>Bacterial species frequencies (amplicon counts) were measured from replicates A, C, and E at days 4, 8, 12, 16, 20, 24, 28, 32, 36, 40, 44, 48, 52, 56, 60</span>
-<span id="cb2-63"><a href="#cb2-63"></a><span class="ss">-   </span>Bacterial species frequencies (amplicon counts) were measured from the "ancestral" and "evolved" inocula used to start the experiment (called "init"). Note this is not measurement from the actual experiment at T0, but a measurement of the inocula.</span>
-<span id="cb2-64"><a href="#cb2-64"></a><span class="ss">-   </span>Whole genome sequencing data (wgs) for all ancestral/clonal bacterial species (24 total)</span>
-<span id="cb2-65"><a href="#cb2-65"></a><span class="ss">-   </span>Whole genome sequencing data (wgs) for each coevolved bacterial species population used to inoculate replicates A,C, E (3 x 24 = 72 total).</span>
-<span id="cb2-66"><a href="#cb2-66"></a><span class="ss">-   </span>Metagenome sequencing data from all evolution treatment combinations, excluding the no predator control conditions (anc prey + no pred, evo prey + no pred) from replicates A, C, E and on days 8, 28, and 60.</span>
-<span id="cb2-67"><a href="#cb2-67"></a><span class="ss">-   </span>Initial defense traits (resistance to ciliate grazing) were measured by *XYZ* for:</span>
-<span id="cb2-68"><a href="#cb2-68"></a><span class="ss">    -   </span>All 24 ancestral bacterial species</span>
-<span id="cb2-69"><a href="#cb2-69"></a><span class="ss">    -   </span>All 24 co-evolved bacterial populations</span>
-<span id="cb2-70"><a href="#cb2-70"></a><span class="ss">-   </span>Evolved defense traits (resistance to ciliate grazing) for:</span>
-<span id="cb2-71"><a href="#cb2-71"></a><span class="ss">    -   </span>16 Random clones isolated from 8, 28, and 60 days for each prey/predator/dilution combination</span>
-<span id="cb2-72"><a href="#cb2-72"></a><span class="ss">    -   </span>Measure OD600 after 48 and 96 hours of growth with and without consumer</span>
-<span id="cb2-73"><a href="#cb2-73"></a></span>
-<span id="cb2-74"><a href="#cb2-74"></a><span class="fu">## Availability</span></span>
+<span id="cb2-60"><a href="#cb2-60"></a>There are many different types of data collected. However, not all data types were collected for all treatment combinations.</span>
+<span id="cb2-61"><a href="#cb2-61"></a></span>
+<span id="cb2-62"><a href="#cb2-62"></a><span class="ss">-   </span>Bacterial density (OD600) measured from replicates A-F in all treatment combinations at days 4, 8, 12, 16, 20, 24, 28, 32, 36, 40, 44, 48, 52, 56, 60</span>
+<span id="cb2-63"><a href="#cb2-63"></a><span class="ss">-   </span>Ciliate density (cells/ml) measured from replicates A-F in all treatment combinations at days 4, 8, 12, 16, 20, 24, 28, 32, 36, 40, 44, 48, 52, 56, 60</span>
+<span id="cb2-64"><a href="#cb2-64"></a><span class="ss">-   </span>Bacterial species frequencies (amplicon counts) were measured from replicates A, C, and E at days 4, 8, 12, 16, 20, 24, 28, 32, 36, 40, 44, 48, 52, 56, 60</span>
+<span id="cb2-65"><a href="#cb2-65"></a><span class="ss">-   </span>Bacterial species frequencies (amplicon counts) were measured from the "ancestral" and "evolved" inocula used to start the experiment (called "init"). Note this is not measurement from the actual experiment at T0, but a measurement of the inocula.</span>
+<span id="cb2-66"><a href="#cb2-66"></a><span class="ss">-   </span>Whole genome sequencing data (wgs) for all ancestral/clonal bacterial species (24 total)</span>
+<span id="cb2-67"><a href="#cb2-67"></a><span class="ss">-   </span>Whole genome sequencing data (wgs) for each coevolved bacterial species population used to inoculate replicates A,C, E (3 x 24 = 72 total).</span>
+<span id="cb2-68"><a href="#cb2-68"></a><span class="ss">-   </span>Metagenome sequencing data from all evolution treatment combinations, excluding the no predator control conditions (anc prey + no pred, evo prey + no pred) from replicates A, C, E and on days 8, 28, and 60.</span>
+<span id="cb2-69"><a href="#cb2-69"></a><span class="ss">-   </span>Initial defense traits (resistance to ciliate grazing) were measured by *XYZ* for:</span>
+<span id="cb2-70"><a href="#cb2-70"></a><span class="ss">    -   </span>All 24 ancestral bacterial species</span>
+<span id="cb2-71"><a href="#cb2-71"></a><span class="ss">    -   </span>All 24 co-evolved bacterial populations</span>
+<span id="cb2-72"><a href="#cb2-72"></a><span class="ss">-   </span>Evolved defense traits (resistance to ciliate grazing) for:</span>
+<span id="cb2-73"><a href="#cb2-73"></a><span class="ss">    -   </span>16 Random clones isolated from 8, 28, and 60 days for each prey/predator/dilution combination</span>
+<span id="cb2-74"><a href="#cb2-74"></a><span class="ss">    -   </span>Measure OD600 after 48 and 96 hours of growth with and without consumer</span>
 <span id="cb2-75"><a href="#cb2-75"></a></span>
-<span id="cb2-76"><a href="#cb2-76"></a>Data and code in this GitHub repository (<span class="ot">&lt;https://github.com/slhogle/hambiDoubleEvo&gt;</span>) is provided under <span class="co">[</span><span class="ot">GNU AGPL3</span><span class="co">](https://www.gnu.org/licenses/agpl-3.0.html)</span>. Feel free to use or remix as you see fit. </span>
-<span id="cb2-77"><a href="#cb2-77"></a>The rendered project site is available at <span class="ot">&lt;https://slhogle.github.io/hambiDoubleEvo/&gt;</span>, which has been produced using <span class="co">[</span><span class="ot">Quarto notebooks</span><span class="co">](https://quarto.org/)</span>. The content on the rendered site is released under the <span class="co">[</span><span class="ot">CC BY 4.0.</span><span class="co">](https://creativecommons.org/licenses/by/4.0/)</span></span>
-<span id="cb2-78"><a href="#cb2-78"></a>This repository hosts all code and data for this project including the code necessary to fully recreate the rendered webpage.</span>
+<span id="cb2-76"><a href="#cb2-76"></a><span class="fu">## Availability</span></span>
+<span id="cb2-77"><a href="#cb2-77"></a></span>
+<span id="cb2-78"><a href="#cb2-78"></a>Data and code in this GitHub repository (<span class="ot">&lt;https://github.com/slhogle/hambiDoubleEvo&gt;</span>) is provided under <span class="co">[</span><span class="ot">GNU AGPL3</span><span class="co">](https://www.gnu.org/licenses/agpl-3.0.html)</span>. Feel free to use or remix as you see fit. The rendered project site is available at <span class="ot">&lt;https://slhogle.github.io/hambiDoubleEvo/&gt;</span>, which has been produced using <span class="co">[</span><span class="ot">Quarto notebooks</span><span class="co">](https://quarto.org/)</span>. The content on the rendered site is released under the <span class="co">[</span><span class="ot">CC BY 4.0.</span><span class="co">](https://creativecommons.org/licenses/by/4.0/)</span> This repository hosts all code and data for this project including the code necessary to fully recreate the rendered webpage.</span>
 <span id="cb2-79"><a href="#cb2-79"></a></span>
-<span id="cb2-80"><a href="#cb2-80"></a>An archived release of the code here is available from Zenodo: <span class="co">[</span><span class="al">![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.14017296.svg)</span><span class="co">](https://doi.org/10.5281/zenodo.14017296)</span> </span>
+<span id="cb2-80"><a href="#cb2-80"></a>Raw sequencing data using in the project is available from NCBI Bioproject <span class="co">[</span><span class="ot">PRJNA1179357</span><span class="co">](https://www.ncbi.nlm.nih.gov/bioproject/PRJNA1179357)</span>.</span>
 <span id="cb2-81"><a href="#cb2-81"></a></span>
-<span id="cb2-82"><a href="#cb2-82"></a>Raw sequencing data using in the project is available from NCBI Bioproject <span class="co">[</span><span class="ot">PRJNA1179357</span><span class="co">](https://www.ncbi.nlm.nih.gov/bioproject/PRJNA1179357)</span>.</span>
+<span id="cb2-82"><a href="#cb2-82"></a><span class="fu">## Reproducibility</span></span>
 <span id="cb2-83"><a href="#cb2-83"></a></span>
-<span id="cb2-84"><a href="#cb2-84"></a><span class="fu">## Reproducibility</span></span>
+<span id="cb2-84"><a href="#cb2-84"></a>The project uses <span class="co">[</span><span class="ot">`renv`</span><span class="co">](https://rstudio.github.io/renv/index.html)</span> to create reproducible environment to execute the code in this project. <span class="co">[</span><span class="ot">See here</span><span class="co">](https://rstudio.github.io/renv/articles/renv.html#collaboration)</span> for a brief overview on collaboration and reproduction of the entire project. To get up and running you can do:</span>
 <span id="cb2-85"><a href="#cb2-85"></a></span>
-<span id="cb2-86"><a href="#cb2-86"></a>The project uses <span class="co">[</span><span class="ot">`renv`</span><span class="co">](https://rstudio.github.io/renv/index.html)</span> to create reproducible environment to execute the code in this project. <span class="co">[</span><span class="ot">See here</span><span class="co">](https://rstudio.github.io/renv/articles/renv.html#collaboration)</span> for a brief overview on collaboration and reproduction of the entire project. To get up and running you can do:</span>
-<span id="cb2-87"><a href="#cb2-87"></a></span>
-<span id="cb2-88"><a href="#cb2-88"></a><span class="in">``` r</span></span>
-<span id="cb2-89"><a href="#cb2-89"></a><span class="fu">install.packages</span>(<span class="st">"renv"</span>)</span>
-<span id="cb2-90"><a href="#cb2-90"></a>renv<span class="sc">::</span><span class="fu">restore</span>()</span>
-<span id="cb2-91"><a href="#cb2-91"></a><span class="in">```</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb2-86"><a href="#cb2-86"></a><span class="in">``` r</span></span>
+<span id="cb2-87"><a href="#cb2-87"></a><span class="fu">install.packages</span>(<span class="st">"renv"</span>)</span>
+<span id="cb2-88"><a href="#cb2-88"></a>renv<span class="sc">::</span><span class="fu">restore</span>()</span>
+<span id="cb2-89"><a href="#cb2-89"></a><span class="in">```</span></span></code><button title="Copy to Clipboard" class="code-copy-button" data-in-quarto-modal=""><i class="bi"></i></button></pre></div>
 </div></div></div></div></div>
 </div> <!-- /content -->
 

@@ -1,54 +1,5 @@
 [
   {
-    "objectID": "index.html",
-    "href": "index.html",
-    "title": "Data analysis for the project hambiDoubleEvo",
-    "section": "",
-    "text": "‡ equal contribution, ◇ Corresponding author and equal contribution\n\n\nTemporal changes in the role of species sorting and evolution determine community dynamics\nHoffman J‡, Hogle SL‡, Hiltunen T◇, Becks L◇ XYZ (2024/5) doi:\n\n\n\nTemporal changes in the role of species sorting and evolution determine community dynamics\nHoffman J‡, Hogle SL‡, Hiltunen T◇, Becks L◇ Research Square(2024) doi: 10.21203/rs.3.rs-4647074/v1"
-  },
-  {
-    "objectID": "index.html#manuscript",
-    "href": "index.html#manuscript",
-    "title": "Data analysis for the project hambiDoubleEvo",
-    "section": "",
-    "text": "‡ equal contribution, ◇ Corresponding author and equal contribution\n\n\nTemporal changes in the role of species sorting and evolution determine community dynamics\nHoffman J‡, Hogle SL‡, Hiltunen T◇, Becks L◇ XYZ (2024/5) doi:\n\n\n\nTemporal changes in the role of species sorting and evolution determine community dynamics\nHoffman J‡, Hogle SL‡, Hiltunen T◇, Becks L◇ Research Square(2024) doi: 10.21203/rs.3.rs-4647074/v1"
-  },
-  {
-    "objectID": "index.html#experiment-overview",
-    "href": "index.html#experiment-overview",
-    "title": "Data analysis for the project hambiDoubleEvo",
-    "section": "2 Experiment overview",
-    "text": "2 Experiment overview\nThis project is a collaboration between teams at University of Turku in Finland and the University of Konstanz in Germany. The repo contains data from an experiment investigating the relative roles of ecology and evolution in an multitrophic synthetic microbial ecosystem. 24 HAMBI bacterial species were individually grown and coevolved for 100 days (3% vol transfer every 4 days) with the generalist bacterivore Tetrahymena thermophila to generate 6 (replicates A-F) x 24 (species) coevolved bacterial and ciliate populations. Bacteria and ciliates were separated from the coevolution cocultures and bacteria made axenic via freeze-thaw. The 24 predator-coevolved bacterial species were pooled in equal proportions into a “coevolved” prey inoculum. Evolved phenotypically variable ciliates were taken from a 3 year long coevolution experiment (see Cairns 2018, Hogle 2022 Ecol Lett, Hogle 2022 ISME J) and were combined in equal proportions into a “Evolved” predator inoculum. Finally, the 24 clonal/ancestral bacterial species were pooled in equal proportions into a “ancestral” prey incolum and the ancestral Tetrahymena was used as the “ancestral” predator incolum. The inocula were used to start a serial transfer experiment in a full factorial design in six biological replicates (anc prey + anc pred, anc prey + evo pred, evo prey + anc pred, evo prey + evo pred). A no-predator treatment was also used (anc prey + no pred, evo prey + no pred). These evolutionary treatments were serially passaged every 48 hours (30% transfer - 1800 μl to 4.2mL fresh 5% KB medium). The serial transfer microcosms were grown for 60 days after which the experiment was terminated."
-  },
-  {
-    "objectID": "index.html#measurements-and-data-types",
-    "href": "index.html#measurements-and-data-types",
-    "title": "Data analysis for the project hambiDoubleEvo",
-    "section": "3 Measurements and data types",
-    "text": "3 Measurements and data types\nThere are many different types of data collected. However, not all data types were collected for all treatment combinations.\n\nBacterial density (OD600) measured from replicates A-F in all treatment combinations at days 4, 8, 12, 16, 20, 24, 28, 32, 36, 40, 44, 48, 52, 56, 60\nCiliate density (cells/ml) measured from replicates A-F in all treatment combinations at days 4, 8, 12, 16, 20, 24, 28, 32, 36, 40, 44, 48, 52, 56, 60\nBacterial species frequencies (amplicon counts) were measured from replicates A, C, and E at days 4, 8, 12, 16, 20, 24, 28, 32, 36, 40, 44, 48, 52, 56, 60\nBacterial species frequencies (amplicon counts) were measured from the “ancestral” and “evolved” inocula used to start the experiment (called “init”). Note this is not measurement from the actual experiment at T0, but a measurement of the inocula.\nWhole genome sequencing data (wgs) for all ancestral/clonal bacterial species (24 total)\nWhole genome sequencing data (wgs) for each coevolved bacterial species population used to inoculate replicates A,C, E (3 x 24 = 72 total).\nMetagenome sequencing data from all evolution treatment combinations, excluding the no predator control conditions (anc prey + no pred, evo prey + no pred) from replicates A, C, E and on days 8, 28, and 60.\nInitial defense traits (resistance to ciliate grazing) were measured by XYZ for:\n\nAll 24 ancestral bacterial species\nAll 24 co-evolved bacterial populations\n\nEvolved defense traits (resistance to ciliate grazing) for:\n\n16 Random clones isolated from 8, 28, and 60 days for each prey/predator/dilution combination\nMeasure OD600 after 48 and 96 hours of growth with and without consumer"
-  },
-  {
-    "objectID": "index.html#data-and-code",
-    "href": "index.html#data-and-code",
-    "title": "Data analysis for the project hambiDoubleEvo",
-    "section": "4 Data and Code",
-    "text": "4 Data and Code\n\nData and code here is provided under GPL3. Feel free to use or remix as you see fit.\n\n4.1 Project structure\n\n/R contains R scripts\n/data contains data that has been processed in some way for later use\n/_data_raw contains unprocessed data scraped from compute cluster\n/figs contains figures generated from R scripts"
-  },
-  {
-    "objectID": "index.html#availability",
-    "href": "index.html#availability",
-    "title": "Data analysis for the project hambiDoubleEvo",
-    "section": "4 Availability",
-    "text": "4 Availability\nData and code in this GitHub repository (https://github.com/slhogle/hambiDoubleEvo) is provided under GNU AGPL3. Feel free to use or remix as you see fit. The rendered project site is available at https://slhogle.github.io/hambiDoubleEvo/, which has been produced using Quarto notebooks. The content on the rendered site is released under the CC BY 4.0. This repository hosts all code and data for this project including the code necessary to fully recreate the rendered webpage.\nAn archived release of the code here is available from Zenodo: \nRaw sequencing data using in the project is available from NCBI Bioproject PRJNA1179357."
-  },
-  {
-    "objectID": "index.html#reproducibility",
-    "href": "index.html#reproducibility",
-    "title": "Data analysis for the project hambiDoubleEvo",
-    "section": "5 Reproducibility",
-    "text": "5 Reproducibility\nThe project uses renv to create reproducible environment to execute the code in this project. See here for a brief overview on collaboration and reproduction of the entire project. To get up and running you can do:\ninstall.packages(\"renv\")\nrenv::restore()"
-  },
-  {
     "objectID": "R/wgs/01_format_variants.html",
     "href": "R/wgs/01_format_variants.html",
     "title": "Format WGS variants",
@@ -357,6 +308,48 @@
     ]
   },
   {
+    "objectID": "index.html",
+    "href": "index.html",
+    "title": "Data analysis for the project hambiDoubleEvo",
+    "section": "",
+    "text": "‡ equal contribution, ◇ Corresponding author and equal contribution\n\n\nTemporal changes in the role of species sorting and evolution determine community dynamics.\nHoffman J‡, Hogle SL‡, Hiltunen T◇, Becks L◇. Ecology Letters (2025) \n\n\n\nTemporal changes in the role of species sorting and evolution determine community dynamics.\nHoffman J‡, Hogle SL‡, Hiltunen T◇, Becks L◇. Research Square (2024) \n\n\n\nAn archived release of the code here is available from Zenodo:"
+  },
+  {
+    "objectID": "index.html#manuscript",
+    "href": "index.html#manuscript",
+    "title": "Data analysis for the project hambiDoubleEvo",
+    "section": "1 Manuscript:",
+    "text": "1 Manuscript:\n‡ equal contribution, ◇ Corresponding author and equal contribution\n\n1.1 Published record\nTemporal changes in the role of species sorting and evolution determine community dynamics.\nHoffman J‡, Hogle SL‡, Hiltunen T◇, Becks L◇. Ecology Letters (2025) doi: 10.1111/ele.70033\n\n\n1.2 Preprint\nTemporal changes in the role of species sorting and evolution determine community dynamics.\nHoffman J‡, Hogle SL‡, Hiltunen T◇, Becks L◇. Research Square (2024) doi: 10.21203/rs.3.rs-4647074/v1"
+  },
+  {
+    "objectID": "index.html#experiment-overview",
+    "href": "index.html#experiment-overview",
+    "title": "Data analysis for the project hambiDoubleEvo",
+    "section": "2 Experiment overview",
+    "text": "2 Experiment overview\nThis project is a collaboration between teams at University of Turku in Finland and the University of Konstanz in Germany. The repo contains data from an experiment investigating the relative roles of ecology and evolution in an multitrophic synthetic microbial ecosystem. 24 HAMBI bacterial species were individually grown and coevolved for 100 days (3% vol transfer every 4 days) with the generalist bacterivore Tetrahymena thermophila to generate 6 (replicates A-F) x 24 (species) coevolved bacterial and ciliate populations. Bacteria and ciliates were separated from the coevolution cocultures and bacteria made axenic via freeze-thaw. The 24 predator-coevolved bacterial species were pooled in equal proportions into a “coevolved” prey inoculum. Evolved phenotypically variable ciliates were taken from a 3 year long coevolution experiment (see Cairns 2018, Hogle 2022 Ecol Lett, Hogle 2022 ISME J) and were combined in equal proportions into a “Evolved” predator inoculum. Finally, the 24 clonal/ancestral bacterial species were pooled in equal proportions into a “ancestral” prey incolum and the ancestral Tetrahymena was used as the “ancestral” predator incolum. The inocula were used to start a serial transfer experiment in a full factorial design in six biological replicates (anc prey + anc pred, anc prey + evo pred, evo prey + anc pred, evo prey + evo pred). A no-predator treatment was also used (anc prey + no pred, evo prey + no pred). These evolutionary treatments were serially passaged every 48 hours (30% transfer - 1800 μl to 4.2mL fresh 5% KB medium). The serial transfer microcosms were grown for 60 days after which the experiment was terminated."
+  },
+  {
+    "objectID": "index.html#measurements-and-data-types",
+    "href": "index.html#measurements-and-data-types",
+    "title": "Data analysis for the project hambiDoubleEvo",
+    "section": "3 Measurements and data types",
+    "text": "3 Measurements and data types\nThere are many different types of data collected. However, not all data types were collected for all treatment combinations.\n\nBacterial density (OD600) measured from replicates A-F in all treatment combinations at days 4, 8, 12, 16, 20, 24, 28, 32, 36, 40, 44, 48, 52, 56, 60\nCiliate density (cells/ml) measured from replicates A-F in all treatment combinations at days 4, 8, 12, 16, 20, 24, 28, 32, 36, 40, 44, 48, 52, 56, 60\nBacterial species frequencies (amplicon counts) were measured from replicates A, C, and E at days 4, 8, 12, 16, 20, 24, 28, 32, 36, 40, 44, 48, 52, 56, 60\nBacterial species frequencies (amplicon counts) were measured from the “ancestral” and “evolved” inocula used to start the experiment (called “init”). Note this is not measurement from the actual experiment at T0, but a measurement of the inocula.\nWhole genome sequencing data (wgs) for all ancestral/clonal bacterial species (24 total)\nWhole genome sequencing data (wgs) for each coevolved bacterial species population used to inoculate replicates A,C, E (3 x 24 = 72 total).\nMetagenome sequencing data from all evolution treatment combinations, excluding the no predator control conditions (anc prey + no pred, evo prey + no pred) from replicates A, C, E and on days 8, 28, and 60.\nInitial defense traits (resistance to ciliate grazing) were measured by XYZ for:\n\nAll 24 ancestral bacterial species\nAll 24 co-evolved bacterial populations\n\nEvolved defense traits (resistance to ciliate grazing) for:\n\n16 Random clones isolated from 8, 28, and 60 days for each prey/predator/dilution combination\nMeasure OD600 after 48 and 96 hours of growth with and without consumer"
+  },
+  {
+    "objectID": "index.html#availability",
+    "href": "index.html#availability",
+    "title": "Data analysis for the project hambiDoubleEvo",
+    "section": "4 Availability",
+    "text": "4 Availability\nData and code in this GitHub repository (https://github.com/slhogle/hambiDoubleEvo) is provided under GNU AGPL3. Feel free to use or remix as you see fit. The rendered project site is available at https://slhogle.github.io/hambiDoubleEvo/, which has been produced using Quarto notebooks. The content on the rendered site is released under the CC BY 4.0. This repository hosts all code and data for this project including the code necessary to fully recreate the rendered webpage.\nRaw sequencing data using in the project is available from NCBI Bioproject PRJNA1179357."
+  },
+  {
+    "objectID": "index.html#reproducibility",
+    "href": "index.html#reproducibility",
+    "title": "Data analysis for the project hambiDoubleEvo",
+    "section": "5 Reproducibility",
+    "text": "5 Reproducibility\nThe project uses renv to create reproducible environment to execute the code in this project. See here for a brief overview on collaboration and reproduction of the entire project. To get up and running you can do:\ninstall.packages(\"renv\")\nrenv::restore()"
+  },
+  {
     "objectID": "R/metagenome/04_mutation_dynamics.html",
     "href": "R/metagenome/04_mutation_dynamics.html",
     "title": "Mutational dynamics",
@@ -586,5 +579,12 @@
       "Population WGS",
       "2. Parallelism analysis"
     ]
+  },
+  {
+    "objectID": "index.html#records",
+    "href": "index.html#records",
+    "title": "Data analysis for the project hambiDoubleEvo",
+    "section": "",
+    "text": "‡ equal contribution, ◇ Corresponding author and equal contribution\n\n\nTemporal changes in the role of species sorting and evolution determine community dynamics.\nHoffman J‡, Hogle SL‡, Hiltunen T◇, Becks L◇. Ecology Letters (2025) \n\n\n\nTemporal changes in the role of species sorting and evolution determine community dynamics.\nHoffman J‡, Hogle SL‡, Hiltunen T◇, Becks L◇. Research Square (2024) \n\n\n\nAn archived release of the code here is available from Zenodo:"
   }
 ]
